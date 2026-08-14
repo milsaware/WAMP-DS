@@ -1,0 +1,43 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build output
+[Bb]in/
+[Oo]bj/
+
+# Publish output
+publish/
+Publish/
+
+# Test results
+TestResults/
+*.trx
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# Rider / ReSharper
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# Generated installer output
+Packages/
+
+# Local development files
+*.csproj.user

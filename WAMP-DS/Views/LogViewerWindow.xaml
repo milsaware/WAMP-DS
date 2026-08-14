@@ -1,0 +1,49 @@
+﻿<Window x:Class="WAMP_DS.Views.LogViewerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Apache Log Viewer"
+        Width="900"
+        Height="600"
+        Background="#1E1E1E"
+        Foreground="White">
+
+    <Grid Margin="10">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,10">
+
+            <Button Content="Refresh"
+                    Width="100"
+                    Margin="0,0,10,0"
+                    Click="Refresh_Click"/>
+
+            <Button Content="Clear"
+                    Width="80"
+                    Height="25"
+                    Margin="5,0,0,0"
+                    Click="Clear_Click"/>
+
+        </StackPanel>
+
+
+        <TextBox x:Name="LogTextBox"
+                 Grid.Row="1"
+                 Background="#111111"
+                 Foreground="#D4D4D4"
+                 FontFamily="Consolas"
+                 FontSize="13"
+                 TextWrapping="Wrap"
+                 AcceptsReturn="True"
+                 VerticalScrollBarVisibility="Auto"
+                 HorizontalScrollBarVisibility="Auto"
+                 IsReadOnly="True"/>
+
+    </Grid>
+
+</Window>

@@ -1,0 +1,1084 @@
+﻿<Window x:Class="WAMP_DS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+        xmlns:controls="clr-namespace:WAMP_DS.Controls"
+        Title="WAMP-DS"
+        Width="1200"
+        Height="670"
+        MinWidth="800"
+        MinHeight="600"
+        WindowStartupLocation="CenterScreen"
+        Background="#1E1E1E"
+        PreviewKeyDown="Window_PreviewKeyDown"
+        Closing="Window_Closing"
+        Icon="Assets/WAMP-DS.ico">
+
+    <Window.Resources>
+
+        <Style TargetType="ContextMenu">
+
+            <Setter Property="Background"
+                Value="#252526"/>
+
+            <Setter Property="Foreground"
+                Value="#CCCCCC"/>
+
+            <Setter Property="BorderBrush"
+                Value="#007ACC"/>
+
+            <Setter Property="BorderThickness"
+                Value="1"/>
+
+            <Setter Property="Padding"
+                Value="4"/>
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="ContextMenu">
+
+                        <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3"
+                            Padding="{TemplateBinding Padding}">
+
+                            <StackPanel IsItemsHost="True"/>
+
+                        </Border>
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+
+        <Style TargetType="MenuItem">
+
+            <Setter Property="Foreground"
+                Value="#CCCCCC"/>
+
+            <Setter Property="Background"
+                Value="Transparent"/>
+
+            <Setter Property="Height"
+                Value="30"/>
+
+            <Setter Property="Margin"
+                Value="4,2"/>
+
+            <Setter Property="FontSize"
+                Value="13"/>
+
+
+            <Setter Property="Template">
+
+                <Setter.Value>
+
+                    <ControlTemplate TargetType="MenuItem">
+
+                        <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="3">
+
+                            <Grid>
+
+                                <ContentPresenter
+                                ContentSource="Header"
+                                Margin="10,0"
+                                VerticalAlignment="Center"/>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsHighlighted"
+                                 Value="True">
+
+                                <Setter TargetName="Border"
+                                    Property="Background"
+                                    Value="#37373D"/>
+
+                            </Trigger>
+
+
+                            <Trigger Property="IsEnabled"
+                                 Value="False">
+
+                                <Setter Property="Foreground"
+                                    Value="#666666"/>
+
+                            </Trigger>
+
+                        </ControlTemplate.Triggers>
+
+
+                    </ControlTemplate>
+
+                </Setter.Value>
+
+            </Setter>
+
+        </Style>
+
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Top Bar -->
+        <Border Grid.Row="0"
+                Background="#252526">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+
+                <!-- Application Name -->
+                <TextBlock Grid.Column="0"
+                           Text="WAMP-DS"
+                           Foreground="White"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           VerticalAlignment="Center"
+                           Margin="15,0"/>
+
+
+                <!-- Toolbar -->
+                <StackPanel Grid.Column="2"
+                            Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="5,0">
+
+                    <!-- New File -->
+                    <Button x:Name="NewFileButton"
+                            Content="📄+"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="New File"
+                            Click="NewFileButton_Click"/>
+
+                    <!-- New Project -->
+                    <Button x:Name="NewProjectButton"
+                            Content="📁+"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="New Project"
+                            Click="NewProjectButton_Click"/>
+
+                    <!-- Save Button -->
+                    <Button x:Name="SaveButton"
+                            Content="💾"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="Save"
+                            Click="SaveButton_Click"/>
+
+                    <!-- Save As -->
+                    <Button x:Name="SaveAsButton"
+                            Content="📄"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="Save As"
+                            Click="SaveAsButton_Click"/>
+
+                    <!-- Preview -->
+                    <Button x:Name="PreviewButton"
+                            Content="▶"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="Preview"
+                            Click="PreviewButton_Click"/>
+
+                    <!-- Settings -->
+                    <Button x:Name="SettingsButton"
+                            Content="⚙"
+                            Width="35"
+                            Height="30"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Foreground="#CCCCCC"
+                            ToolTip="Settings"
+                            Click="SettingsButton_Click"/>
+
+                    <!-- Developer Tools -->
+                    <Button x:Name="DeveloperToolsButton"
+                        Content="🛠"
+                        Width="35"
+                        Height="30"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Foreground="#CCCCCC"
+                        ToolTip="Developer Tools"
+                        Click="DeveloperToolsButton_Click"/>
+
+                </StackPanel>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- Main Application Area -->
+        <Grid Grid.Row="1">
+
+
+            <!-- Main Columns -->
+            <Grid.ColumnDefinitions>
+
+                <!-- Explorer -->
+                <ColumnDefinition x:Name="ExplorerColumn"
+                      Width="200"
+                      MinWidth="0"
+                      MaxWidth="500"/>
+
+                <!-- Explorer Divider -->
+                <ColumnDefinition Width="5"/>
+
+                <!-- Main Workspace -->
+                <ColumnDefinition Width="*"/>
+
+                <!-- Live Preview Divider -->
+                <ColumnDefinition Width="5"/>
+
+                <!-- Live Preview Panel -->
+                <ColumnDefinition x:Name="LivePreviewColumn"
+                      Width="270"
+                      MinWidth="0"/>
+
+            </Grid.ColumnDefinitions>
+
+            <!-- Explorer -->
+            <Border Grid.Column="0"
+                    Background="#252526">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!-- Explorer Header -->
+                    <Border Grid.Row="0"
+                            Background="#2D2D30">
+
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <!-- Explorer Title -->
+                            <TextBlock Grid.Column="0"
+                                       Text="EXPLORER"
+                                       Foreground="#CCCCCC"
+                                       FontSize="11"
+                                       FontWeight="SemiBold"
+                                       VerticalAlignment="Center"
+                                       Margin="15,0"/>
+
+
+                            <!-- Open Project -->
+                            <Button x:Name="OpenProjectButton"
+                                    Grid.Column="1"
+                                    Content="📂"
+                                    Width="35"
+                                    Height="35"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="#CCCCCC"
+                                    ToolTip="Open Project"
+                                    Click="OpenProjectButton_Click"/>
+
+                        </Grid>
+
+                    </Border>
+
+
+                    <!-- Project Explorer -->
+                    <TreeView x:Name="ProjectTreeView"
+                              TreeViewItem.Expanded="ProjectTree_Expanded"
+                              Grid.Row="1"
+                              Background="Transparent"
+                              BorderThickness="0"
+                              Foreground="#CCCCCC"
+                              Margin="5"
+                              MouseDoubleClick="ProjectTreeView_MouseDoubleClick">
+
+                        <TreeView.Resources>
+
+                            <!-- TreeView Item -->
+                            <Style TargetType="{x:Type TreeViewItem}">
+
+                                <Setter Property="Foreground"
+                                        Value="#CCCCCC"/>
+
+                                <Setter Property="FontSize"
+                                        Value="13"/>
+
+                                <Setter Property="Padding"
+                                        Value="2"/>
+
+                                <Setter Property="Margin"
+                                        Value="0,1"/>
+
+                                <Setter Property="Background"
+                                        Value="Transparent"/>
+
+                                <Style.Resources>
+
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                                                     Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}"
+                                                     Color="Transparent"/>
+
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                                                     Color="#CCCCCC"/>
+
+                                    <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}"
+                                                     Color="#CCCCCC"/>
+
+                                </Style.Resources>
+
+                            </Style>
+
+                        </TreeView.Resources>
+
+                    </TreeView>
+
+                </Grid>
+
+            </Border>
+
+            <!-- Explorer Resize Grip -->
+            <GridSplitter Grid.Column="1"
+                          Width="5"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          Background="#3F3F46"
+                          ResizeDirection="Columns"
+                          ResizeBehavior="PreviousAndNext"
+                          ShowsPreview="False"/>
+
+            <!-- Main Workspace -->
+            <Grid Grid.Column="2">
+
+                <!-- Workspace / Bottom Panel -->
+                <Grid.RowDefinitions>
+                    <!-- Main Workspace -->
+                    <RowDefinition Height="*"/>
+
+                    <!-- Bottom Resize Grip -->
+                    <RowDefinition Height="5"/>
+
+                    <!-- Bottom Panel -->
+                    <RowDefinition x:Name="BottomPanelRow"
+                        Height="150"
+                        MinHeight="0"
+                        MaxHeight="500"/>
+                </Grid.RowDefinitions>
+
+
+                <!-- Main Workspace -->
+                <Grid Grid.Row="0">
+
+
+                    <!-- Welcome Screen -->
+                    <Grid x:Name="WelcomePanel"
+                          Background="#1E1E1E">
+
+                        <StackPanel
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center">
+
+                            <TextBlock Text="WAMP-DS"
+                                       Foreground="#CCCCCC"
+                                       FontSize="28"
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Center"/>
+
+                            <TextBlock Text="Welcome to WAMP-DS"
+                                       Foreground="#888888"
+                                       FontSize="16"
+                                       Margin="0,10,0,0"
+                                       HorizontalAlignment="Center"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+
+                    <!-- Editor Workspace -->
+                    <Grid x:Name="EditorWorkspace"
+                          Visibility="Collapsed">
+
+                        <Grid.RowDefinitions>
+
+                            <!-- Editor Tabs -->
+                            <RowDefinition Height="35"/>
+
+                            <!-- Editor -->
+                            <RowDefinition Height="*"/>
+
+                        </Grid.RowDefinitions>
+
+
+                        <!-- Editor Tabs -->
+                        <controls:EditorTabs x:Name="EditorTabs"
+                                             Grid.Row="0"/>
+
+
+                        <!-- Code Editor -->
+                        <Border Grid.Row="1"
+                                Background="#1E1E1E">
+
+                            <controls:CodeEditor x:Name="CodeEditor"/>
+
+                        </Border>
+
+                    </Grid>
+
+                </Grid>
+
+
+                <!-- Bottom Resize Grip -->
+                <GridSplitter Grid.Row="1"
+                              Height="5"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Stretch"
+                              Background="#3F3F46"
+                              ResizeDirection="Rows"
+                              ResizeBehavior="PreviousAndNext"
+                              ShowsPreview="False"/>
+
+
+                <!-- Bottom Panel -->
+                <Border Grid.Row="2"
+                        Background="#252526">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+
+                        <!-- Bottom Panel Header -->
+                        <Border Grid.Row="0"
+                                Background="#2D2D30">
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+
+                                <!-- Panel Tabs -->
+                                <StackPanel Grid.Column="0"
+                                            Orientation="Horizontal">
+
+                                    <!-- Output -->
+                                    <Border x:Name="OutputTabBorder"
+                                            Background="#252526"
+                                            BorderBrush="#007ACC"
+                                            BorderThickness="0,0,0,2">
+
+                                        <Button x:Name="OutputTabButton"
+                                                Content="OUTPUT"
+                                                Width="80"
+                                                Height="35"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="White"
+                                                Click="OutputTabButton_Click"/>
+
+                                    </Border>
+
+
+                                    <!-- Terminal -->
+                                    <Border x:Name="TerminalTabBorder"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0,0,0,2">
+
+                                        <Button x:Name="TerminalTabButton"
+                                                Content="TERMINAL"
+                                                Width="80"
+                                                Height="35"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="#CCCCCC"
+                                                Click="TerminalTabButton_Click"/>
+
+                                    </Border>
+
+
+                                    <!-- Server -->
+                                    <Border x:Name="ServerTabBorder"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            BorderThickness="0,0,0,2">
+
+                                        <Button x:Name="ServerTabButton"
+                                                Content="SERVER"
+                                                Width="80"
+                                                Height="35"
+                                                Background="Transparent"
+                                                BorderThickness="0"
+                                                Foreground="#CCCCCC"
+                                                Click="ServerTabButton_Click"/>
+
+                                    </Border>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Border>
+
+
+                        <!-- Bottom Panel Content -->
+                        <Grid Grid.Row="1">
+
+
+                            <!-- Output -->
+                            <RichTextBox x:Name="OutputPanel"
+                                     Background="#1E1E1E"
+                                     Foreground="#CCCCCC"
+                                     BorderThickness="0"
+                                     IsReadOnly="True"
+                                     Padding="10"
+                                     Visibility="Visible"/>
+
+
+                            <!-- Terminal -->
+                            <Grid x:Name="TerminalPanel"
+                                  Background="#1E1E1E"
+                                  Visibility="Collapsed">
+
+                                <TextBlock Text="Terminal"
+                                           Foreground="#888888"
+                                           Margin="10"/>
+
+                            </Grid>
+
+
+                            <!-- Server -->
+                            <Grid x:Name="ServerPanel"
+                                  Background="#1E1E1E"
+                                  Visibility="Collapsed">
+
+                                <StackPanel Margin="15">
+
+                                    <TextBlock Text="SERVER"
+                                               Foreground="#CCCCCC"
+                                               FontSize="12"
+                                               FontWeight="SemiBold"
+                                               Margin="0,0,0,15"/>
+
+                                    <Grid>
+
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="15"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="15"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="15"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <!-- MySQL -->
+                                        <Border Grid.Column="0"
+        Background="#252526"
+        BorderBrush="#3F3F46"
+        BorderThickness="1"
+        Padding="15">
+
+                                            <Grid>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <!-- Information -->
+                                                <StackPanel Grid.Row="0">
+
+                                                    <Grid Margin="0,0,0,10">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <TextBlock Text="MySQL"
+                           Grid.Column="0"
+                           Foreground="#CCCCCC"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Margin="0,0,15,0"/>
+
+
+                                                        <TextBlock x:Name="MySQLStatusIndicator"
+                           Grid.Column="1"
+                           Text="●"
+                           Foreground="Gray"
+                           FontSize="13"
+                           Margin="0,0,6,0"/>
+
+
+                                                        <TextBlock x:Name="MySQLStatusText"
+                           Grid.Column="2"
+                           Text="Stopped"
+                           Foreground="#CCCCCC"
+                           FontSize="13"/>
+
+                                                    </Grid>
+
+
+                                                    <TextBlock x:Name="MySQLPortText"
+                       Text="Port: 3306"
+                       Foreground="#888888"
+                       FontSize="12"
+                       Margin="0,0,0,5"/>
+
+
+                                                    <TextBlock x:Name="MySQLVersionText"
+                       Text="Version: 8.4.11"
+                       Foreground="#888888"
+                       FontSize="12"/>
+
+                                                </StackPanel>
+
+
+                                                <!-- Buttons -->
+                                                <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    Margin="0,15,0,0">
+
+                                                    <Button x:Name="MySQLControlButton"
+                    Content="Start"
+                    Width="80"
+                    Height="25"
+                    Background="#333333"
+                    BorderBrush="#555555"
+                    Foreground="#CCCCCC"
+                    Click="MySQLControlButton_Click"/>
+
+
+                                                    <Button x:Name="PhpMyAdminButton"
+                    Content="phpMyAdmin"
+                    Width="90"
+                    Height="25"
+                    Margin="10,0,0,0"
+                    Background="#333333"
+                    BorderBrush="#555555"
+                    Foreground="#CCCCCC"
+                    Click="PhpMyAdminButton_Click"/>
+
+                                                </StackPanel>
+
+                                            </Grid>
+
+                                        </Border>
+
+
+                                        <!-- Apache -->
+                                        <Border Grid.Column="2"
+        Background="#252526"
+        BorderBrush="#3F3F46"
+        BorderThickness="1"
+        Padding="15">
+
+                                            <Grid>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <StackPanel>
+
+                                                    <Grid Margin="0,0,0,10">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <TextBlock Text="Apache"
+                           Grid.Column="0"
+                           Foreground="#CCCCCC"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Margin="0,0,15,0"/>
+
+
+                                                        <TextBlock x:Name="ApacheStatusIndicator"
+                           Grid.Column="1"
+                           Text="●"
+                           Foreground="Gray"
+                           Margin="0,0,6,0"/>
+
+
+                                                        <TextBlock x:Name="ApacheStatusText"
+                           Grid.Column="2"
+                           Text="Stopped"
+                           Foreground="#CCCCCC"/>
+
+                                                    </Grid>
+
+
+                                                    <TextBlock x:Name="ApachePortText"
+                       Text="Port: 80"
+                       Foreground="#888888"
+                       FontSize="12"
+                       Margin="0,0,0,5"/>
+
+
+                                                    <TextBlock x:Name="ApacheVersionText"
+                       Text="Version: 2.4.68"
+                       Foreground="#888888"
+                       FontSize="12"/>
+
+                                                </StackPanel>
+
+
+                                                <Button Grid.Row="1"
+                x:Name="ApacheControlButton"
+                Content="Start"
+                Width="70"
+                Height="25"
+                HorizontalAlignment="Left"
+                Margin="0,15,0,0"
+                Background="#333333"
+                BorderBrush="#555555"
+                Foreground="#CCCCCC"
+                Click="ApacheControlButton_Click"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+
+                                        <!-- SSL -->
+                                        <Border Grid.Column="4"
+        Background="#252526"
+        BorderBrush="#3F3F46"
+        BorderThickness="1"
+        Padding="15">
+
+                                            <Grid>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <StackPanel>
+
+                                                    <Grid Margin="0,0,0,10">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <TextBlock Text="SSL"
+                           Grid.Column="0"
+                           Foreground="#CCCCCC"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Margin="0,0,15,0"/>
+
+
+                                                        <TextBlock x:Name="SslStatusIndicator"
+                           Grid.Column="1"
+                           Text="●"
+                           Foreground="Gray"
+                           Margin="0,0,6,0"/>
+
+
+                                                        <TextBlock x:Name="SslStatusText"
+                           Grid.Column="2"
+                           Text="Disabled"
+                           Foreground="#CCCCCC"/>
+
+                                                    </Grid>
+
+
+                                                    <TextBlock x:Name="SslPortText"
+                       Text="Port: 443"
+                       Foreground="#888888"
+                       FontSize="12"
+                       Margin="0,0,0,5"/>
+
+
+                                                    <TextBlock x:Name="SslCertificateText"
+                       Text="Certificate: Not configured"
+                       Foreground="#888888"
+                       FontSize="12"/>
+
+                                                </StackPanel>
+
+
+                                                <Button Grid.Row="1"
+                x:Name="SslControlButton"
+                Content="Enable"
+                Width="70"
+                Height="25"
+                HorizontalAlignment="Left"
+                Margin="0,15,0,0"
+                Background="#333333"
+                BorderBrush="#555555"
+                Foreground="#CCCCCC"
+                Click="SslControlButton_Click"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+                                        <!-- OpenSearch -->
+                                        <Border Grid.Column="6"
+        Background="#252526"
+        BorderBrush="#3F3F46"
+        BorderThickness="1"
+        Padding="15">
+
+                                            <Grid>
+
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <StackPanel>
+
+                                                    <Grid Margin="0,0,0,10">
+
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                            <ColumnDefinition Width="Auto"/>
+                                                        </Grid.ColumnDefinitions>
+
+
+                                                        <TextBlock Text="OpenSearch"
+                           Grid.Column="0"
+                           Foreground="#CCCCCC"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Margin="0,0,15,0"/>
+
+
+                                                        <TextBlock x:Name="OpenSearchStatusIndicator"
+                           Grid.Column="1"
+                           Text="●"
+                           Foreground="Gray"
+                           Margin="0,0,6,0"/>
+
+
+                                                        <TextBlock x:Name="OpenSearchStatusText"
+                           Grid.Column="2"
+                           Text="Stopped"
+                           Foreground="#CCCCCC"/>
+
+                                                    </Grid>
+
+
+                                                    <TextBlock x:Name="OpenSearchPortText"
+                       Text="Port: 9200"
+                       Foreground="#888888"
+                       FontSize="12"
+                       Margin="0,0,0,5"/>
+
+
+                                                    <TextBlock x:Name="OpenSearchVersionText"
+                       Text="Version: 3.8.0"
+                       Foreground="#888888"
+                       FontSize="12"/>
+
+                                                </StackPanel>
+
+
+                                                <Button Grid.Row="1"
+                x:Name="OpenSearchControlButton"
+                Content="Start"
+                Width="70"
+                Height="25"
+                HorizontalAlignment="Left"
+                Margin="0,15,0,0"
+                Background="#333333"
+                BorderBrush="#555555"
+                Foreground="#CCCCCC"/>
+
+                                            </Grid>
+
+                                        </Border>
+
+                                    </Grid>
+
+                                </StackPanel>
+
+                            </Grid>
+
+                        </Grid>
+
+                    </Grid>
+
+                </Border>
+
+            </Grid>
+
+            <!-- Live Preview Resize Grip -->
+            <GridSplitter Grid.Column="3"
+              Width="5"
+              HorizontalAlignment="Stretch"
+              VerticalAlignment="Stretch"
+              Background="#3F3F46"
+              ResizeDirection="Columns"
+              ResizeBehavior="PreviousAndNext"
+              ShowsPreview="False"/>
+
+            <!-- Live Preview Panel -->
+            <Border Grid.Column="4"
+                Background="#1E1E1E"
+                SizeChanged="LivePreviewColumn_SizeChanged">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <!-- Preview Header -->
+                    <Border Grid.Row="0"
+                        Background="#2D2D30">
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0"
+                               Text="LIVE PREVIEW"
+                               Foreground="#CCCCCC"
+                               VerticalAlignment="Center"
+                               Margin="10,0"/>
+
+
+                            <TextBlock x:Name="PreviewDimensionsText"
+                               Grid.Column="1"
+                               Text="0 x 0"
+                               Foreground="#888888"
+                               VerticalAlignment="Center"
+                               Margin="10,0"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- Browser -->
+                    <wv2:WebView2 x:Name="LivePreviewBrowser"
+                      Grid.Row="1"/>
+
+                </Grid>
+
+            </Border>
+
+        </Grid>
+
+        <!-- Status Bar -->
+        <Border x:Name="StatusBar"
+                Grid.Row="2"
+                Background="#007ACC">
+
+            <Grid>
+
+                <StackPanel Orientation="Horizontal"
+                            VerticalAlignment="Center"
+                            Margin="10,0">
+
+                    <TextBlock x:Name="SslStatusIcon"
+                               Text=""
+                               Foreground="White"
+                               FontSize="11"
+                               VerticalAlignment="Center"
+                               Margin="0,0,6,0"/>
+
+                    <TextBlock x:Name="StatusBarText"
+                               Text="Ready"
+                               Foreground="White"
+                               FontSize="11"
+                               VerticalAlignment="Center"/>
+
+                </StackPanel>
+
+                <TextBlock Text="WAMP-DS"
+                           Foreground="White"
+                           FontSize="11"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Center"
+                           Margin="10,0"/>
+
+            </Grid>
+
+        </Border>
+    </Grid>
+
+</Window>

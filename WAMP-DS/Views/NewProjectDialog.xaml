@@ -1,0 +1,261 @@
+﻿<Window x:Class="WAMP_DS.Views.NewProjectDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Create New Project"
+        Width="620"
+        Height="650"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner"
+        Background="#1E1E1E">
+
+    <Grid Margin="25">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- Header -->
+        <StackPanel>
+
+            <TextBlock Text="Create New Project"
+                       Foreground="#CCCCCC"
+                       FontSize="22"
+                       FontWeight="SemiBold"/>
+
+            <TextBlock Text="Setup your project environment"
+                       Foreground="#888888"
+                       FontSize="13"
+                       Margin="0,5,0,20"/>
+
+        </StackPanel>
+
+        <!-- Content -->
+        <ScrollViewer Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+
+            <StackPanel>
+
+                <!-- Project Details -->
+                <Border Background="#252526"
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15"
+                        Margin="0,0,0,15">
+
+                    <StackPanel>
+                        <TextBlock Text="PROJECT DETAILS"
+                                   Foreground="#888888"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,15"/>
+
+                        <TextBlock Text="Project Name"
+                                   Foreground="#CCCCCC"
+                                   FontSize="12"/>
+
+                        <TextBox x:Name="ProjectNameTextBox"
+                                 Height="36"
+                                 Margin="0,5,0,15"
+                                 Background="#1E1E1E"
+                                 Foreground="#CCCCCC"
+                                 BorderBrush="#3F3F46"
+                                 Padding="8"/>
+
+                        <TextBlock Text="Location"
+                                   Foreground="#CCCCCC"
+                                   FontSize="12"/>
+
+                        <Grid Margin="0,5,0,15">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="90"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBox x:Name="LocationTextBox"
+                                     Height="36"
+                                     Background="#1E1E1E"
+                                     Foreground="#CCCCCC"
+                                     BorderBrush="#3F3F46"
+                                     Padding="8"/>
+
+                            <Button Grid.Column="1"
+                                    Content="Browse"
+                                    Margin="10,0,0,0"
+                                    Height="36"
+                                    Background="#333333"
+                                    Foreground="#CCCCCC"
+                                    BorderBrush="#555555"
+                                    Click="BrowseButton_Click"/>
+                        </Grid>
+
+                        <TextBlock Text="Project Type"
+                                   Foreground="#CCCCCC"
+                                   FontSize="12"
+                                   Margin="0,0,0,8"/>
+
+                        <WrapPanel>
+                            <RadioButton x:Name="HtmlProjectRadioButton"
+                                 Content="Plain HTML"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 IsChecked="True"
+                                 Checked="ProjectTypeChanged"/>
+
+                            <RadioButton x:Name="PhpProjectRadioButton"
+                                 Content="PHP"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 Checked="ProjectTypeChanged"/>
+
+                            <RadioButton x:Name="CodeIgniterProjectRadioButton"
+                                 Content="CodeIgniter"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 Checked="ProjectTypeChanged"/>
+
+                            <RadioButton x:Name="LaravelProjectRadioButton"
+                                 Content="Laravel"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 Checked="ProjectTypeChanged"/>
+
+                            <RadioButton x:Name="WordPressProjectRadioButton"
+                                 Content="WordPress"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 Checked="ProjectTypeChanged"/>
+
+                            <RadioButton x:Name="MagentoProjectRadioButton"
+                                 Content="Magento"
+                                 Foreground="#CCCCCC"
+                                 Width="150"
+                                 Margin="0,0,10,8"
+                                 Checked="ProjectTypeChanged"/>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Apache -->
+                <Border Background="#252526"
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15"
+                        Margin="0,0,0,15">
+
+                    <StackPanel>
+                        <TextBlock Text="APACHE"
+                                   Foreground="#888888"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,15"/>
+
+                        <CheckBox x:Name="CreateVirtualHostCheckBox"
+                                  Content="Create Virtual Host"
+                                  Foreground="#CCCCCC"
+                                  IsChecked="True"/>
+
+                        <TextBlock Text="Domain"
+                                   Foreground="#888888"
+                                   FontSize="12"
+                                   Margin="0,10,0,5"/>
+
+                        <TextBox x:Name="VirtualHostDomainTextBox"
+                                 Text="myproject.local"
+                                 Height="36"
+                                 Background="#1E1E1E"
+                                 Foreground="#CCCCCC"
+                                 BorderBrush="#3F3F46"
+                                 Padding="8"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- HTTPS -->
+                <Border Background="#252526"
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15"
+                        Margin="0,0,0,15">
+
+                    <StackPanel>
+                        <TextBlock Text="HTTPS / SSL"
+                                   Foreground="#888888"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,15"/>
+
+                        <CheckBox x:Name="EnableHttpsCheckBox"
+                                  Content="Generate development certificate"
+                                  Foreground="#CCCCCC"
+                                  IsChecked="True"/>
+                    </StackPanel>
+                </Border>
+
+                <!-- Database -->
+                <Border Background="#252526"
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15">
+
+                    <StackPanel>
+                        <TextBlock Text="MYSQL"
+                                   Foreground="#888888"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,15"/>
+
+                        <CheckBox x:Name="CreateDatabaseCheckBox"
+                                  Content="Create database"
+                                  Foreground="#CCCCCC"/>
+
+                        <TextBlock Text="Database Name"
+                                   Foreground="#888888"
+                                   FontSize="12"
+                                   Margin="0,10,0,5"/>
+
+                        <TextBox x:Name="DatabaseNameTextBox"
+                                 Text="myproject_db"
+                                 Height="36"
+                                 Background="#1E1E1E"
+                                 Foreground="#CCCCCC"
+                                 BorderBrush="#3F3F46"
+                                 Padding="8"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+
+        <!-- Buttons -->
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+
+            <Button Content="Cancel"
+                    Width="90"
+                    Height="32"
+                    Margin="0,0,10,0"
+                    Background="#333333"
+                    Foreground="#CCCCCC"
+                    BorderBrush="#555555"
+                    Click="CancelButton_Click"/>
+
+            <Button Content="Create"
+                    Width="90"
+                    Height="32"
+                    Background="#007ACC"
+                    Foreground="White"
+                    BorderBrush="#007ACC"
+                    Click="CreateButton_Click"/>
+        </StackPanel>
+    </Grid>
+
+</Window>

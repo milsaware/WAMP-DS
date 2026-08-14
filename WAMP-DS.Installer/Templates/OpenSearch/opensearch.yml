@@ -1,0 +1,26 @@
+﻿# ==============================================================================
+# WAMP-DS OpenSearch Configuration
+# OpenSearch 3.8.x - Windows Development Environment
+#
+# Local development configuration for WAMP-DS.
+# NOT intended for production servers.
+#
+# This file is generated and controlled by WAMP-DS.
+# Manual changes may be overwritten.
+# ==============================================================================
+
+cluster.name: wamp-ds
+
+node.name: wamp-ds-node
+
+network.host: 127.0.0.1
+
+http.port: 9200
+
+discovery.type: single-node
+
+plugins.security.disabled: true
+
+path.data: "{{OPENSEARCH_DATA}}"
+
+path.logs: "{{OPENSEARCH_LOGS}}"

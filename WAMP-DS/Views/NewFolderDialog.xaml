@@ -1,0 +1,63 @@
+﻿<Window x:Class="WAMP_DS.Views.NewFolderDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="New Folder"
+        Width="400"
+        Height="190"
+        WindowStartupLocation="CenterOwner"
+        ResizeMode="NoResize"
+        Background="#1E1E1E">
+
+    <Grid Margin="20">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+
+        <TextBlock Text="Folder Name"
+                   Foreground="#CCCCCC"
+                   FontSize="13"
+                   Margin="0,0,0,10"/>
+
+
+        <TextBox x:Name="FolderNameTextBox"
+                 Grid.Row="1"
+                 Background="#252526"
+                 Foreground="#CCCCCC"
+                 BorderBrush="#007ACC"
+                 Padding="6"
+                 FontSize="13"/>
+
+
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    Margin="0,20,0,0">
+
+            <Button x:Name="CreateButton"
+                    Content="Create"
+                    Width="80"
+                    Height="28"
+                    Margin="0,0,10,0"
+                    Background="#333333"
+                    BorderBrush="#555555"
+                    Foreground="#CCCCCC"
+                    Click="CreateButton_Click"/>
+
+
+            <Button Content="Cancel"
+                    Width="80"
+                    Height="28"
+                    Background="#333333"
+                    BorderBrush="#555555"
+                    Foreground="#CCCCCC"
+                    Click="CancelButton_Click"/>
+
+        </StackPanel>
+
+    </Grid>
+
+</Window>
