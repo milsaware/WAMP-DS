@@ -107,4 +107,8 @@ That's a much better test.
 
 ---
 
-**[← Back to Development History](../../../)**
+<p align="center">
+<a href="../../.."><strong>← Development History</strong></a>
+&nbsp;&nbsp;|&nbsp;&nbsp;
+<a href="./01.md"><strong>Development Entry #01 →</strong></a>
+</p>
