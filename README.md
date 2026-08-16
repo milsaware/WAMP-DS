@@ -24,7 +24,7 @@ WAMP-DS is currently under active development.
 
 The core development environment, project creation system, runtime management and installer are in place, with additional features and integrations continuing to be developed.
 
-The first public release is being prepared now.
+The first public alpha release is now available in the Releases section on the right.
 
 ## What is WAMP-DS?
 
