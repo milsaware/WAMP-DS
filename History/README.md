@@ -18,6 +18,10 @@ Each entry records not only what changed, but also the reasoning, problems, solu
 
 <br>
 
+- **[16 August 2026 — First Real-World Development Bugs](2026/08/16/)**
+  
+  The first bugs discovered while using WAMP-DS for actual development are documented, including issues with project scaffolding, the Project Explorer and the live preview workflow.
+
 - **[14 August 2026 — WAMP-DS Goes Public](2026/08/14/)**
   
   The first WAMP-DS source code was published to GitHub and the first public alpha release was prepared and released. This entry documents the process of taking the project from local development to its first public GitHub release.
