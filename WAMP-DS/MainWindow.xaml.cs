@@ -68,10 +68,9 @@ namespace WAMP_DS
                 installationPaths
             );
 
-            DatabaseManager databaseManager =
-                new DatabaseManager(
-                    mysqlSettingsManager
-                );
+            DatabaseManager databaseManager = new DatabaseManager(
+                mysqlSettingsManager
+            );
 
             projectCreationManager = new ProjectCreationManager(
                 projectManager,
@@ -97,83 +96,81 @@ namespace WAMP_DS
         }
 
         private void LivePreviewBrowser_CoreWebView2InitializationCompleted(
-            object? sender,
-            Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e
+            object? sender,            Microsoft.Web.WebView2.Core.CoreWebView2InitializationCompletedEventArgs e
         )
         {
             if (!e.IsSuccess)
                 return;
-
             LivePreviewBrowser.CoreWebView2.AddScriptToExecuteOnDocumentCreatedAsync(
     @"
-(() => {
+    (() => {
 
-    const originalLog = console.log;
-    const originalWarn = console.warn;
-    const originalError = console.error;
-
-
-    console.log = function(...args)
-    {
-        window.chrome.webview.postMessage(
-            '[LOG] ' + args.join(' ')
-        );
-
-        originalLog.apply(console,args);
-    };
+        const originalLog = console.log;
+        const originalWarn = console.warn;
+        const originalError = console.error;
 
 
-    console.warn = function(...args)
-    {
-        window.chrome.webview.postMessage(
-            '[WARN] ' + args.join(' ')
-        );
-
-        originalWarn.apply(console,args);
-    };
-
-
-    console.error = function(...args)
-    {
-        window.chrome.webview.postMessage(
-            '[ERROR] ' + args.join(' ')
-        );
-
-        originalError.apply(console,args);
-    };
-
-
-    window.onerror = function(message, source, lineno, colno, error)
-    {
-        window.chrome.webview.postMessage(
-            '[ERROR] ' +
-            message +
-            ' (' +
-            source +
-            ':' +
-            lineno +
-            ':' +
-            colno +
-            ')'
-        );
-    };
-
-
-    window.addEventListener(
-        'unhandledrejection',
-        function(event)
+        console.log = function(...args)
         {
             window.chrome.webview.postMessage(
-                '[ERROR] Unhandled Promise Rejection: ' +
-                event.reason
+                '[LOG] ' + args.join(' ')
             );
-        }
+
+            originalLog.apply(console,args);
+        };
+
+
+        console.warn = function(...args)
+        {
+            window.chrome.webview.postMessage(
+                '[WARN] ' + args.join(' ')
+            );
+
+            originalWarn.apply(console,args);
+        };
+
+
+        console.error = function(...args)
+        {
+            window.chrome.webview.postMessage(
+                '[ERROR] ' + args.join(' ')
+            );
+
+            originalError.apply(console,args);
+        };
+
+
+        window.onerror = function(message, source, lineno, colno, error)
+        {
+            window.chrome.webview.postMessage(
+                '[ERROR] ' +
+                message +
+                ' (' +
+                source +
+                ':' +
+                lineno +
+                ':' +
+                colno +
+                ')'
+            );
+        };
+
+
+        window.addEventListener(
+            'unhandledrejection',
+            function(event)
+            {
+                window.chrome.webview.postMessage(
+                    '[ERROR] Unhandled Promise Rejection: ' +
+                    event.reason
+                );
+            }
+        );
+
+
+    })();
+    "
     );
-
-
-})();
-"
-);
         }
 
         private void LivePreviewColumn_SizeChanged(
@@ -185,15 +182,12 @@ namespace WAMP_DS
 
         private void UpdatePreviewDimensions()
         {
-            int width =
-                (int)LivePreviewBrowser.ActualWidth;
+            int width = (int)LivePreviewBrowser.ActualWidth;
 
-            int height =
-                (int)LivePreviewBrowser.ActualHeight;
+            int height = (int)LivePreviewBrowser.ActualHeight;
 
 
-            PreviewDimensionsText.Text =
-                $"{width} x {height}";
+            PreviewDimensionsText.Text = $"{width} x {height}";
         }
 
         private void LivePreviewBrowser_SizeChanged(
@@ -226,8 +220,7 @@ namespace WAMP_DS
                     OpenSearchControlButton.Content = "Starting...";
 
                     OpenSearchControlButton.IsEnabled = false;
-
-                    break;
+                break;
 
                 case OpenSearchStatus.Running:
                     OpenSearchStatusText.Text = "Running";
@@ -237,8 +230,7 @@ namespace WAMP_DS
                     OpenSearchControlButton.Content = "Stop";
 
                     OpenSearchControlButton.IsEnabled = true;
-
-                    break;
+                break;
 
                 case OpenSearchStatus.Failed:
                     OpenSearchStatusText.Text = "Failed";
@@ -248,8 +240,7 @@ namespace WAMP_DS
                     OpenSearchControlButton.Content = "Start";
 
                     OpenSearchControlButton.IsEnabled = true;
-
-                    break;
+                break;
 
                 default:
                     OpenSearchStatusText.Text = "Stopped";
@@ -259,8 +250,7 @@ namespace WAMP_DS
                     OpenSearchControlButton.Content = "Start";
 
                     OpenSearchControlButton.IsEnabled = true;
-
-                    break;
+                break;
             }
 
             OpenSearchPortText.Text = $"Port: {openSearchManager.Port}";
@@ -299,8 +289,7 @@ namespace WAMP_DS
                     ApacheStatusIndicator.Foreground = System.Windows.Media.Brushes.Gold;
                     ApacheControlButton.Content = "Starting...";
                     ApacheControlButton.IsEnabled = false;
-
-                    break;
+                break;
 
                 case ApacheStatus.Running:
                     ApacheStatusText.Text = "Running";
@@ -308,8 +297,7 @@ namespace WAMP_DS
                     ApacheStatusIndicator.Foreground = System.Windows.Media.Brushes.LightGreen;
                     ApacheControlButton.Content = "Stop";
                     ApacheControlButton.IsEnabled = true;
-
-                    break;
+                break;
 
                 case ApacheStatus.Stopping:
                     ApacheStatusText.Text = "Stopping";
@@ -317,8 +305,7 @@ namespace WAMP_DS
                     ApacheStatusIndicator.Foreground = System.Windows.Media.Brushes.Gold;
                     ApacheControlButton.Content = "Stopping...";
                     ApacheControlButton.IsEnabled = false;
-
-                    break;
+                break;
 
                 case ApacheStatus.Failed:
                     ApacheStatusText.Text = "Failed";
@@ -326,8 +313,7 @@ namespace WAMP_DS
                     ApacheStatusIndicator.Foreground = System.Windows.Media.Brushes.IndianRed;
                     ApacheControlButton.Content = "Start";
                     ApacheControlButton.IsEnabled = true;
-
-                    break;
+                break;
 
                 default:
                     ApacheStatusText.Text = "Stopped";
@@ -335,8 +321,7 @@ namespace WAMP_DS
                     ApacheStatusIndicator.Foreground = System.Windows.Media.Brushes.Gray;
                     ApacheControlButton.Content = "Start";
                     ApacheControlButton.IsEnabled = true;
-
-                    break;
+                break;
             }
 
             ApachePortText.Text = $"Port: {apacheManager.Port}";
@@ -350,63 +335,46 @@ namespace WAMP_DS
 
         private void UpdateSslCard()
         {
-            bool sslEnabled =
-                apacheManager.IsHttpsEnabled();
+            bool sslEnabled = apacheManager.IsHttpsEnabled();
 
-
-            SslPortText.Text =
-                $"Port: {apacheManager.HttpsPort}";
-
+            SslPortText.Text = $"Port: {apacheManager.HttpsPort}";
 
             if (sslEnabled)
             {
-                SslStatusText.Text =
-                    "Enabled";
+                SslStatusText.Text = "Enabled";
 
-                SslStatusIndicator.Text =
-                    "●";
+                SslStatusIndicator.Text = "●";
 
                 SslStatusIndicator.Foreground =
                     System.Windows.Media.Brushes.LightGreen;
 
-                SslControlButton.Content =
-                    "Disable";
+                SslControlButton.Content = "Disable";
 
-                SslControlButton.IsEnabled =
-                    true;
+                SslControlButton.IsEnabled = true;
 
-
-                if (File.Exists(
-                    apacheManager.ServerCertificate))
+                if (File.Exists(apacheManager.ServerCertificate))
                 {
-                    SslCertificateText.Text =
-                        "Certificate: Configured";
+                    SslCertificateText.Text = "Certificate: Configured";
                 }
                 else
                 {
-                    SslCertificateText.Text =
-                        "Certificate: Missing";
+                    SslCertificateText.Text = "Certificate: Missing";
                 }
             }
             else
             {
-                SslStatusText.Text =
-                    "Disabled";
+                SslStatusText.Text = "Disabled";
 
-                SslStatusIndicator.Text =
-                    "●";
+                SslStatusIndicator.Text = "●";
 
                 SslStatusIndicator.Foreground =
                     System.Windows.Media.Brushes.Gray;
 
-                SslControlButton.Content =
-                    "Enable";
+                SslControlButton.Content = "Enable";
 
-                SslControlButton.IsEnabled =
-                    true;
+                SslControlButton.IsEnabled = true;
 
-                SslCertificateText.Text =
-                    "Certificate: Not configured";
+                SslCertificateText.Text = "Certificate: Not configured";
             }
         }
 
@@ -429,7 +397,6 @@ namespace WAMP_DS
                 apacheManager.Status == ApacheStatus.Starting ||
                 apacheManager.Status == ApacheStatus.Stopping;
 
-
             // Services transitioning
             if (mysqlStarting || apacheStarting)
             {
@@ -442,15 +409,12 @@ namespace WAMP_DS
                         )
                     );
 
-                StatusBarText.Text =
-                    "Starting services...";
+                StatusBarText.Text = "Starting services...";
 
-                SslStatusIcon.Text =
-                    "⏳";
+                SslStatusIcon.Text = "⏳";
 
                 return;
             }
-
 
             // One or both services offline
             if (!mysqlRunning || !apacheRunning)
@@ -464,36 +428,26 @@ namespace WAMP_DS
                         )
                     );
 
-
-                SslStatusIcon.Text =
-                    "⚠";
-
+                SslStatusIcon.Text = "⚠";
 
                 if (!apacheRunning && !mysqlRunning)
                 {
-                    StatusBarText.Text =
-                        "Apache + MySQL Offline";
+                    StatusBarText.Text = "Apache + MySQL Offline";
                 }
                 else if (!apacheRunning)
                 {
-                    StatusBarText.Text =
-                        "Apache Offline";
+                    StatusBarText.Text = "Apache Offline";
                 }
                 else
                 {
-                    StatusBarText.Text =
-                        "MySQL Offline";
+                    StatusBarText.Text = "MySQL Offline";
                 }
-
 
                 return;
             }
 
-
             // Both running - SSL decides blue/green
-            bool sslEnabled =
-                apacheManager.IsHttpsEnabled();
-
+            bool sslEnabled = apacheManager.IsHttpsEnabled();
 
             if (sslEnabled)
             {
@@ -511,13 +465,11 @@ namespace WAMP_DS
 
                 if (openSearchRunning)
                 {
-                    StatusBarText.Text =
-                        "HTTPS • Apache + MySQL + OpenSearch Online";
+                    StatusBarText.Text = "HTTPS • Apache + MySQL + OpenSearch Online";
                 }
                 else
                 {
-                    StatusBarText.Text =
-                        "HTTPS • Apache + MySQL Online";
+                    StatusBarText.Text = "HTTPS • Apache + MySQL Online";
                 }
             }
             else
@@ -531,8 +483,7 @@ namespace WAMP_DS
                         )
                     );
 
-                SslStatusIcon.Text =
-                    "🌐";
+                SslStatusIcon.Text = "🌐";
 
                 if (openSearchRunning)
                 {
@@ -541,8 +492,7 @@ namespace WAMP_DS
                 }
                 else
                 {
-                    StatusBarText.Text =
-                        "HTTP • Apache + MySQL Online";
+                    StatusBarText.Text = "HTTP • Apache + MySQL Online";
                 }
             }
         }
@@ -564,6 +514,7 @@ namespace WAMP_DS
                 Close();
                 return;
             }
+
             // Make SERVER the default selected tab.
             ShowBottomPanel(
                 OutputPanel,
@@ -592,8 +543,7 @@ namespace WAMP_DS
 
             try
             {
-                string? projectPath =
-                    projectManager.CurrentProjectPath;
+                string? projectPath = projectManager.CurrentProjectPath;
 
                 await apacheManager.StartAsync(
                     projectPath
@@ -638,12 +588,9 @@ namespace WAMP_DS
         {
             try
             {
-                bool sslEnabled =
-                    apacheManager.IsHttpsEnabled();
-
+                bool sslEnabled = apacheManager.IsHttpsEnabled();
 
                 SslControlButton.IsEnabled = false;
-
 
                 // Stop Apache before changing SSL configuration
                 if (apacheManager.Status == ApacheStatus.Running)
@@ -652,7 +599,6 @@ namespace WAMP_DS
 
                     await Task.Delay(500);
                 }
-
 
                 if (sslEnabled)
                 {
@@ -663,10 +609,8 @@ namespace WAMP_DS
                     apacheManager.EnableHttps();
                 }
 
-
                 // Restart Apache with new configuration
                 await apacheManager.StartAsync();
-
 
                 UpdateApacheStatus();
                 UpdateSslCard();
@@ -706,105 +650,71 @@ namespace WAMP_DS
             switch (mysqlManager.Status)
             {
                 case MySQLStatus.Starting:
+                    MySQLStatusText.Text = "Starting";
 
-                    MySQLStatusText.Text =
-                        "Starting";
-
-                    MySQLStatusIndicator.Text =
-                        "●";
+                    MySQLStatusIndicator.Text = "●";
 
                     MySQLStatusIndicator.Foreground =
                         System.Windows.Media.Brushes.Gold;
 
-                    MySQLControlButton.Content =
-                        "Starting...";
+                    MySQLControlButton.Content = "Starting...";
 
-                    MySQLControlButton.IsEnabled =
-                        false;
-
-                    break;
-
+                    MySQLControlButton.IsEnabled = false;
+                break;
 
                 case MySQLStatus.Running:
+                    MySQLStatusText.Text = "Running";
 
-                    MySQLStatusText.Text =
-                        "Running";
-
-                    MySQLStatusIndicator.Text =
-                        "●";
+                    MySQLStatusIndicator.Text = "●";
 
                     MySQLStatusIndicator.Foreground =
                         System.Windows.Media.Brushes.LightGreen;
 
-                    MySQLControlButton.Content =
-                        "Stop";
+                    MySQLControlButton.Content = "Stop";
 
-                    MySQLControlButton.IsEnabled =
-                        true;
-
-                    break;
+                    MySQLControlButton.IsEnabled = true;
+                break;
 
 
                 case MySQLStatus.Stopping:
+                    MySQLStatusText.Text = "Stopping";
 
-                    MySQLStatusText.Text =
-                        "Stopping";
-
-                    MySQLStatusIndicator.Text =
-                        "●";
+                    MySQLStatusIndicator.Text = "●";
 
                     MySQLStatusIndicator.Foreground =
                         System.Windows.Media.Brushes.Gold;
 
-                    MySQLControlButton.Content =
-                        "Stopping...";
+                    MySQLControlButton.Content = "Stopping...";
 
-                    MySQLControlButton.IsEnabled =
-                        false;
-
-                    break;
-
+                    MySQLControlButton.IsEnabled = false;
+                break;
 
                 case MySQLStatus.Failed:
+                    MySQLStatusText.Text = "Failed";
 
-                    MySQLStatusText.Text =
-                        "Failed";
-
-                    MySQLStatusIndicator.Text =
-                        "●";
+                    MySQLStatusIndicator.Text = "●";
 
                     MySQLStatusIndicator.Foreground =
                         System.Windows.Media.Brushes.IndianRed;
 
-                    MySQLControlButton.Content =
-                        "Start";
+                    MySQLControlButton.Content = "Start";
 
-                    MySQLControlButton.IsEnabled =
-                        true;
-
-                    break;
-
+                    MySQLControlButton.IsEnabled = true;
+                break;
 
                 default:
+                    MySQLStatusText.Text = "Stopped";
 
-                    MySQLStatusText.Text =
-                        "Stopped";
-
-                    MySQLStatusIndicator.Text =
-                        "●";
+                    MySQLStatusIndicator.Text = "●";
 
                     MySQLStatusIndicator.Foreground =
                         System.Windows.Media.Brushes.Gray;
 
-                    MySQLControlButton.Content =
-                        "Start";
+                    MySQLControlButton.Content = "Start";
 
-                    MySQLControlButton.IsEnabled =
-                        true;
-
-                    break;
+                    MySQLControlButton.IsEnabled = true;
+                break;
             }
-
 
             MySQLPortText.Text =
                 $"Port: {mysqlManager.Port}";
@@ -814,8 +724,8 @@ namespace WAMP_DS
         }
 
         private async void MainWindow_Closing(
-    object? sender,
-    System.ComponentModel.CancelEventArgs e)
+            object? sender,
+            System.ComponentModel.CancelEventArgs e)
         {
             if (_isClosing)
                 return;
@@ -898,7 +808,6 @@ namespace WAMP_DS
                     return;
                 }
 
-
                 if (mysqlManager.Status ==
                         MySQLStatus.Stopped ||
                     mysqlManager.Status ==
@@ -932,7 +841,6 @@ namespace WAMP_DS
                     return;
                 }
 
-
                 if (apacheManager.Status ==
                         ApacheStatus.Stopped ||
                     apacheManager.Status ==
@@ -956,11 +864,10 @@ namespace WAMP_DS
             object sender,
             RoutedEventArgs e)
         {
-            PhpMyAdminWindow phpMyAdminWindow =
-                new PhpMyAdminWindow()
-                {
-                    Owner = this
-                };
+            PhpMyAdminWindow phpMyAdminWindow = new PhpMyAdminWindow()
+            {
+                Owner = this
+            };
 
             phpMyAdminWindow.Show();
         }
@@ -977,14 +884,11 @@ namespace WAMP_DS
             if (currentIndex < 0)
                 return;
 
-
             if (targetIndex > currentIndex)
                 targetIndex--;
 
-
             if (targetIndex < 0)
                 targetIndex = 0;
-
 
             if (targetIndex >=
                 editorManager.OpenDocuments.Count)
@@ -993,16 +897,13 @@ namespace WAMP_DS
                     editorManager.OpenDocuments.Count - 1;
             }
 
-
             if (currentIndex == targetIndex)
                 return;
-
 
             editorManager.OpenDocuments.Move(
                 currentIndex,
                 targetIndex
             );
-
 
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
@@ -1049,10 +950,8 @@ namespace WAMP_DS
                 return;
             }
 
-
             string? projectPath =
                 projectManager.CurrentProjectPath;
-
 
             if (string.IsNullOrEmpty(projectPath))
             {
@@ -1085,7 +984,6 @@ namespace WAMP_DS
                         ? "https"
                         : "http";
 
-
                 previewUrl =
                     $"{protocol}://{settings.Domain}/";
             }
@@ -1096,20 +994,16 @@ namespace WAMP_DS
                         projectPath
                     );
 
-
                 if (string.IsNullOrEmpty(previewFilePath))
                     return;
-
 
                 bool started =
                     await phpPreviewManager.StartPhpServer(
                         projectPath
                     );
 
-
                 if (!started)
                     return;
-
 
                 previewUrl =
                     phpPreviewManager.GetPreviewUrl(
@@ -1118,10 +1012,8 @@ namespace WAMP_DS
                     );
             }
 
-
             OpenDocument? document =
                 editorManager.ActiveDocument;
-
 
             if (document != null &&
                 document.IsModified)
@@ -1131,7 +1023,6 @@ namespace WAMP_DS
                         document,
                         out string? errorMessage
                     );
-
 
                 if (!saved)
                 {
@@ -1146,20 +1037,14 @@ namespace WAMP_DS
                 }
             }
 
+            previewWindow = new PreviewWindow(previewUrl)
+            {
+                Owner = this
+            };
 
-            previewWindow =
-                new PreviewWindow(previewUrl)
-                {
-                    Owner = this
-                };
-
-
-            previewWindow.Closed +=
-                PreviewWindow_Closed;
-
+            previewWindow.Closed += PreviewWindow_Closed;
 
             previewWindow.Show();
-
 
             PreviewButton.Content = "■";
             PreviewButton.ToolTip = "Stop Preview";
@@ -1171,26 +1056,20 @@ namespace WAMP_DS
         {
             previewWindow = null;
 
-            PreviewButton.Content =
-                "▶";
+            PreviewButton.Content = "▶";
 
-            PreviewButton.ToolTip =
-                "Preview";
+            PreviewButton.ToolTip = "Preview";
         }
 
         private void ShowBottomPanel(
             UIElement panel,
             Button activeButton)
         {
-            OutputPanel.Visibility =
-                Visibility.Collapsed;
+            OutputPanel.Visibility = Visibility.Collapsed;
 
-            TerminalPanel.Visibility =
-                Visibility.Collapsed;
+            TerminalPanel.Visibility = Visibility.Collapsed;
 
-            ServerPanel.Visibility =
-                Visibility.Collapsed;
-
+            ServerPanel.Visibility = Visibility.Collapsed;
 
             OutputTabBorder.Background =
                 System.Windows.Media.Brushes.Transparent;
@@ -1201,7 +1080,6 @@ namespace WAMP_DS
             ServerTabBorder.Background =
                 System.Windows.Media.Brushes.Transparent;
 
-
             OutputTabBorder.BorderBrush =
                 System.Windows.Media.Brushes.Transparent;
 
@@ -1210,7 +1088,6 @@ namespace WAMP_DS
 
             ServerTabBorder.BorderBrush =
                 System.Windows.Media.Brushes.Transparent;
-
 
             OutputTabButton.Foreground =
                 new System.Windows.Media.SolidColorBrush(
@@ -1221,7 +1098,6 @@ namespace WAMP_DS
                     )
                 );
 
-
             TerminalTabButton.Foreground =
                 new System.Windows.Media.SolidColorBrush(
                     System.Windows.Media.Color.FromRgb(
@@ -1230,7 +1106,6 @@ namespace WAMP_DS
                         204
                     )
                 );
-
 
             ServerTabButton.Foreground =
                 new System.Windows.Media.SolidColorBrush(
@@ -1241,14 +1116,10 @@ namespace WAMP_DS
                     )
                 );
 
-
-            panel.Visibility =
-                Visibility.Visible;
-
+            panel.Visibility = Visibility.Visible;
 
             activeButton.Foreground =
                 System.Windows.Media.Brushes.White;
-
 
             if (activeButton ==
                 OutputTabButton)
@@ -1262,7 +1133,6 @@ namespace WAMP_DS
                         )
                     );
 
-
                 OutputTabBorder.BorderBrush =
                     new System.Windows.Media.SolidColorBrush(
                         System.Windows.Media.Color.FromRgb(
@@ -1272,8 +1142,7 @@ namespace WAMP_DS
                         )
                     );
             }
-            else if (activeButton ==
-                     TerminalTabButton)
+            else if (activeButton == TerminalTabButton)
             {
                 TerminalTabBorder.Background =
                     new System.Windows.Media.SolidColorBrush(
@@ -1284,7 +1153,6 @@ namespace WAMP_DS
                         )
                     );
 
-
                 TerminalTabBorder.BorderBrush =
                     new System.Windows.Media.SolidColorBrush(
                         System.Windows.Media.Color.FromRgb(
@@ -1294,8 +1162,7 @@ namespace WAMP_DS
                         )
                     );
             }
-            else if (activeButton ==
-                     ServerTabButton)
+            else if (activeButton == ServerTabButton)
             {
                 ServerTabBorder.Background =
                     new System.Windows.Media.SolidColorBrush(
@@ -1306,15 +1173,14 @@ namespace WAMP_DS
                         )
                     );
 
-
-                ServerTabBorder.BorderBrush =
-                    new System.Windows.Media.SolidColorBrush(
-                        System.Windows.Media.Color.FromRgb(
-                            0,
-                            122,
-                            204
-                        )
-                    );
+                ServerTabBorder.BorderBrush = new System.Windows.Media.SolidColorBrush
+                (
+                    System.Windows.Media.Color.FromRgb(
+                        0,
+                        122,
+                        204
+                    )
+                );
             }
         }
 
@@ -1323,12 +1189,10 @@ namespace WAMP_DS
             bool hasOpenDocuments =
                 editorManager.OpenDocuments.Count > 0;
 
-
             WelcomePanel.Visibility =
                 hasOpenDocuments
                     ? Visibility.Collapsed
                     : Visibility.Visible;
-
 
             EditorWorkspace.Visibility =
                 hasOpenDocuments
@@ -1343,7 +1207,6 @@ namespace WAMP_DS
                 document
             );
 
-
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
             );
@@ -1356,16 +1219,13 @@ namespace WAMP_DS
                 document))
                 return;
 
-
             editorManager.CloseDocument(
                 document
             );
 
-
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
             );
-
 
             UpdateWorkspaceVisibility();
         }
@@ -1376,36 +1236,26 @@ namespace WAMP_DS
             if (!document.IsModified)
                 return true;
 
+            MessageBoxResult result = MessageBox.Show(
+                $"Do you want to save changes to {document.FileName}?",
+                "WAMP-DS",
+                MessageBoxButton.YesNoCancel,
+                MessageBoxImage.Warning
+            );
 
-            MessageBoxResult result =
-                MessageBox.Show(
-                    $"Do you want to save changes to {document.FileName}?",
-                    "WAMP-DS",
-                    MessageBoxButton.YesNoCancel,
-                    MessageBoxImage.Warning
-                );
-
-
-            if (result ==
-                MessageBoxResult.Cancel)
+            if (result == MessageBoxResult.Cancel)
                 return false;
 
-
-            if (result ==
-                MessageBoxResult.No)
+            if (result == MessageBoxResult.No)
                 return true;
 
-
-            bool saved =
-                editorManager.SaveDocument(
-                    document,
-                    out string? errorMessage
-                );
-
+            bool saved = editorManager.SaveDocument(
+                document,
+                out string? errorMessage
+            );
 
             if (saved)
                 return true;
-
 
             MessageBox.Show(
                 $"Unable to save {document.FileName}.\n\n{errorMessage}",
@@ -1414,7 +1264,6 @@ namespace WAMP_DS
                 MessageBoxImage.Error
             );
 
-
             return false;
         }
 
@@ -1422,16 +1271,13 @@ namespace WAMP_DS
             object sender,
             RoutedEventArgs e)
         {
-            bool saved =
-                editorManager.SaveActiveDocumentAs(
-                    out string? errorMessage
-                );
-
+            bool saved = editorManager.SaveActiveDocumentAs(
+                out string? errorMessage
+            );
 
             if (!saved)
             {
-                if (!string.IsNullOrEmpty(
-                    errorMessage))
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
                     MessageBox.Show(
                         $"Unable to save the file.\n\n{errorMessage}",
@@ -1441,15 +1287,12 @@ namespace WAMP_DS
                     );
                 }
 
-
                 return;
             }
-
 
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
             );
-
 
             RefreshProjectTree();
         }
@@ -1458,32 +1301,25 @@ namespace WAMP_DS
             object sender,
             RoutedEventArgs e)
         {
-            OpenFileDialog dialog =
-                new()
-                {
-                    Title =
-                        "Select a project folder",
+            OpenFileDialog dialog = new()
+            {
+                Title = "Select a project folder",
 
-                    CheckFileExists =
-                        false,
+                CheckFileExists = false,
 
-                    CheckPathExists =
-                        true,
+                CheckPathExists = true,
 
-                    FileName =
-                        "Select Folder"
-                };
+                FileName = "Select Folder"
+            };
 
             if (dialog.ShowDialog() != true)
                 return;
 
-            string? projectPath =
-                Path.GetDirectoryName(
-                    dialog.FileName
-                );
+            string? projectPath = Path.GetDirectoryName(
+                dialog.FileName
+            );
 
-            if (string.IsNullOrEmpty(
-                projectPath))
+            if (string.IsNullOrEmpty(projectPath))
                 return;
 
             projectManager.OpenProject(
@@ -1502,18 +1338,14 @@ namespace WAMP_DS
             if (e.OriginalSource is not TreeViewItem treeItem)
                 return;
 
-
             if (treeItem.Tag is not ProjectItem projectItem)
                 return;
-
 
             projectManager.LoadChildren(
                 projectItem
             );
 
-
             treeItem.Items.Clear();
-
 
             foreach (ProjectItem child in projectItem.Children)
             {
@@ -1528,85 +1360,51 @@ namespace WAMP_DS
             if (!projectManager.IsProjectOpen)
                 return;
 
-
             projectManager.LoadProjectItems();
-
 
             ProjectTreeView.Items.Clear();
 
+            TreeViewItem projectTreeItem = new()
+            {
+                Tag = projectManager.CurrentProjectPath,
 
-            TreeViewItem projectTreeItem =
-                new()
-                {
-                    Tag =
-                        projectManager.CurrentProjectPath,
+                Foreground = new System.Windows.Media.SolidColorBrush
+                (
+                    System.Windows.Media.Color.FromRgb(
+                        204,
+                        204,
+                        204
+                    )
+                )
+            };
 
-                    Foreground =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(
-                                204,
-                                204,
-                                204
-                            )
-                        )
-                };
+            StackPanel headerPanel = new()
+            {
+                Orientation = Orientation.Horizontal
+            };
 
+            TextBlock icon = new()
+            {
+                Text = "📁",
+                FontSize = 14,
+                Margin = new Thickness(0, 0, 6, 0)
+            };
 
-            StackPanel headerPanel =
-                new()
-                {
-                    Orientation =
-                        Orientation.Horizontal
-                };
+            TextBlock name = new()
+            {
+                Text = projectManager.CurrentProjectName,
 
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
-            TextBlock icon =
-                new()
-                {
-                    Text =
-                        "📁",
+            headerPanel.Children.Add(icon);
+            headerPanel.Children.Add(name);
 
-                    FontSize =
-                        14,
+            projectTreeItem.Header = headerPanel;
 
-                    Margin =
-                        new Thickness(
-                            0,
-                            0,
-                            6,
-                            0
-                        )
-                };
+            projectTreeItem.ContextMenu = CreateRootExplorerContextMenu();
 
-
-            TextBlock name =
-                new()
-                {
-                    Text =
-                        projectManager.CurrentProjectName,
-
-                    VerticalAlignment =
-                        VerticalAlignment.Center
-                };
-
-
-            headerPanel.Children.Add(
-                icon
-            );
-
-
-            headerPanel.Children.Add(
-                name
-            );
-
-
-            projectTreeItem.Header =
-                headerPanel;
-
-
-            foreach (
-                ProjectItem item
-                in projectManager.ProjectItems)
+            foreach (ProjectItem item in projectManager.ProjectItems)
             {
                 projectTreeItem.Items.Add(
                     CreateTreeViewItem(
@@ -1615,95 +1413,56 @@ namespace WAMP_DS
                 );
             }
 
+            ProjectTreeView.Items.Add(projectTreeItem);
 
-            ProjectTreeView.Items.Add(
-                projectTreeItem
-            );
-
-
-            projectTreeItem.IsExpanded =
-                true;
+            projectTreeItem.IsExpanded = true;
         }
 
         private TreeViewItem CreateTreeViewItem(
             ProjectItem item)
         {
-            TreeViewItem treeItem =
-                new()
-                {
-                    Tag =
-                        item,
+            TreeViewItem treeItem =new()
+            {
+                Tag = item,
 
-                    Foreground =
-                        new System.Windows.Media.SolidColorBrush(
-                            System.Windows.Media.Color.FromRgb(
-                                204,
-                                204,
-                                204
-                            )
-                        )
-                };
+                Foreground = new System.Windows.Media.SolidColorBrush(
+                    System.Windows.Media.Color.FromRgb(
+                        204,
+                        204,
+                        204
+                    )
+                )
+            };
 
+            StackPanel headerPanel = new()
+            {
+                Orientation = Orientation.Horizontal
+            };
 
-            StackPanel headerPanel =
-                new()
-                {
-                    Orientation =
-                        Orientation.Horizontal
-                };
+            TextBlock icon = new()
+            {
+                Text = item.IsDirectory? "📁" : "📄",
 
+                FontSize = 14,
 
-            TextBlock icon =
-                new()
-                {
-                    Text =
-                        item.IsDirectory
-                            ? "📁"
-                            : "📄",
+                Margin = new Thickness(0, 0, 6, 0)
+            };
 
-                    FontSize =
-                        14,
+            TextBlock name = new()
+            {
+                Text = item.Name,
 
-                    Margin =
-                        new Thickness(
-                            0,
-                            0,
-                            6,
-                            0
-                        )
-                };
+                VerticalAlignment = VerticalAlignment.Center
+            };
 
+            headerPanel.Children.Add(icon);
+            headerPanel.Children.Add(name);
 
-            TextBlock name =
-                new()
-                {
-                    Text =
-                        item.Name,
-
-                    VerticalAlignment =
-                        VerticalAlignment.Center
-                };
-
-
-            headerPanel.Children.Add(
-                icon
-            );
-
-
-            headerPanel.Children.Add(
-                name
-            );
-
-
-            treeItem.Header =
-                headerPanel;
-
+            treeItem.Header = headerPanel;
 
             if (item.IsDirectory)
             {
-                foreach (
-                    ProjectItem childItem
-                    in item.Children)
+                foreach (ProjectItem childItem in item.Children)
                 {
                     treeItem.Items.Add(
                         CreateTreeViewItem(
@@ -1731,9 +1490,10 @@ namespace WAMP_DS
 
                 newFile.Click += (s, e) =>
                 {
-                    CreateNewExplorerFile(item);
+                    CreateNewExplorerFile(
+                        item.FullPath
+                    );
                 };
-
 
                 MenuItem newFolder = new()
                 {
@@ -1742,7 +1502,9 @@ namespace WAMP_DS
 
                 newFolder.Click += (s, e) =>
                 {
-                    CreateNewExplorerFolder(item);
+                    CreateNewExplorerFolder(
+                        item.FullPath
+                    );
                 };
 
                 menu.Items.Add(newFile);
@@ -1792,93 +1554,108 @@ namespace WAMP_DS
             return menu;
         }
 
-
-
-        private void CreateNewExplorerFile(ProjectItem folder)
+        private ContextMenu CreateRootExplorerContextMenu()
         {
-            NewFileDialog dialog =
-                new NewFileDialog()
-                {
-                    Owner = this
-                };
+            ContextMenu menu = new();
 
+            MenuItem newFile = new()
+            {
+                Header = "📄 New File"
+            };
+
+            newFile.Click += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(projectManager.CurrentProjectPath))
+                    return;
+
+                CreateNewExplorerFile(
+                    projectManager.CurrentProjectPath
+                );
+            };
+
+            MenuItem newFolder = new()
+            {
+                Header = "📁 New Folder"
+            };
+
+            newFolder.Click += (s, e) =>
+            {
+                if (string.IsNullOrEmpty(projectManager.CurrentProjectPath))
+                    return;
+
+                CreateNewExplorerFolder(
+                    projectManager.CurrentProjectPath
+                );
+            };
+
+            menu.Items.Add(newFile);
+            menu.Items.Add(newFolder);
+
+            return menu;
+        }
+
+        private void CreateNewExplorerFile(string folderPath)
+        {
+            NewFileDialog dialog = new NewFileDialog()
+            {
+                Owner = this
+            };
 
             if (dialog.ShowDialog() != true)
                 return;
 
+            string extension = dialog.SelectedExtension;
 
-            string extension =
-                dialog.SelectedExtension;
+            string fileName = $"NewFile{extension}";
 
-
-            string fileName =
-                $"NewFile{extension}";
-
-
-            string filePath =
-                Path.Combine(
-                    folder.FullPath,
-                    fileName
-                );
-
+            string filePath = Path.Combine(
+                folderPath,
+                fileName
+            );
 
             int counter = 1;
 
             while (File.Exists(filePath))
             {
-                fileName =
-                    $"NewFile{counter}{extension}";
+                fileName = $"NewFile{counter}{extension}";
 
-                filePath =
-                    Path.Combine(
-                        folder.FullPath,
-                        fileName
-                    );
+                filePath = Path.Combine(
+                    folderPath,
+                    fileName
+                );
 
                 counter++;
             }
-
 
             File.WriteAllText(
                 filePath,
                 dialog.SelectedTemplate ?? string.Empty
             );
 
-
             RefreshProjectTree();
         }
 
-
-
-        private void CreateNewExplorerFolder(ProjectItem folder)
+        private void CreateNewExplorerFolder(string folderPath)
         {
-            NewFolderDialog dialog =
-                new NewFolderDialog()
-                {
-                    Owner = this
-                };
-
+            NewFolderDialog dialog = new NewFolderDialog()
+            {
+                Owner = this
+            };
 
             if (dialog.ShowDialog() != true)
                 return;
 
-
-            string folderName =
-                dialog.FolderName;
-
+            string folderName = dialog.FolderName;
 
             if (string.IsNullOrWhiteSpace(folderName))
                 return;
 
+            string newFolderPath = Path.Combine(
+                folderPath,
+                folderName
+            );
 
-            string folderPath =
-                Path.Combine(
-                    folder.FullPath,
-                    folderName
-                );
-
-
-            if (Directory.Exists(folderPath))
+            if (Directory.Exists(newFolderPath))
             {
                 MessageBox.Show(
                     "A folder with that name already exists.",
@@ -1890,11 +1667,9 @@ namespace WAMP_DS
                 return;
             }
 
-
             Directory.CreateDirectory(
-                folderPath
+                newFolderPath
             );
-
 
             RefreshProjectTree();
         }
@@ -1903,16 +1678,11 @@ namespace WAMP_DS
             object sender,
             System.Windows.Input.MouseButtonEventArgs e)
         {
-            DependencyObject? source =
-                e.OriginalSource
-                    as DependencyObject;
+            DependencyObject? source = e.OriginalSource as DependencyObject;
 
-
-            TreeViewItem? clickedItem =
-                FindParent<TreeViewItem>(
-                    source
-                );
-
+            TreeViewItem? clickedItem = FindParent<TreeViewItem>(
+                source
+            );
 
             if (clickedItem == null)
                 return;
@@ -1920,18 +1690,12 @@ namespace WAMP_DS
             if (clickedItem.Tag is not ProjectItem projectItem)
                 return;
 
+            string selectedPath = projectItem.FullPath;
 
-            string selectedPath =
-                projectItem.FullPath;
-
-
-            if (Directory.Exists(
-                selectedPath))
+            if (Directory.Exists(selectedPath))
                 return;
 
-
-            if (!File.Exists(
-                selectedPath))
+            if (!File.Exists(selectedPath))
                 return;
 
             editorManager.OpenFile(
@@ -1941,7 +1705,6 @@ namespace WAMP_DS
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
             );
-
 
             UpdateWorkspaceVisibility();
         }
@@ -1955,13 +1718,10 @@ namespace WAMP_DS
                 if (child is T parent)
                     return parent;
 
-
-                child =
-                    System.Windows.Media.VisualTreeHelper.GetParent(
-                        child
-                    );
+                child = System.Windows.Media.VisualTreeHelper.GetParent(
+                    child
+                );
             }
-
 
             return null;
         }
@@ -1970,9 +1730,7 @@ namespace WAMP_DS
             object sender,
             RoutedEventArgs e)
         {
-            bool saved =
-                editorManager.SaveActiveDocument();
-
+            bool saved = editorManager.SaveActiveDocument();
 
             if (saved)
             {
@@ -1986,28 +1744,22 @@ namespace WAMP_DS
             object sender,
             RoutedEventArgs e)
         {
-            NewFileDialog dialog =
-                new NewFileDialog()
-                {
-                    Owner =
-                        this
-                };
-
+            NewFileDialog dialog = new NewFileDialog()
+            {
+                Owner = this
+            };
 
             if (dialog.ShowDialog() != true)
                 return;
-
 
             editorManager.CreateNewDocument(
                 dialog.SelectedExtension,
                 dialog.SelectedTemplate
             );
 
-
             EditorTabs.SetDocuments(
                 editorManager.OpenDocuments
             );
-
 
             UpdateWorkspaceVisibility();
         }
@@ -2021,17 +1773,13 @@ namespace WAMP_DS
 
         private async Task OpenNewProject()
         {
-            NewProjectDialog dialog =
-                new NewProjectDialog()
-                {
-                    Owner =
-                        this
-                };
-
+            NewProjectDialog dialog = new NewProjectDialog()
+            {
+                Owner = this
+            };
 
             if (dialog.ShowDialog() != true)
                 return;
-
 
             ProjectCreationOptions options = new()
             {
@@ -2045,20 +1793,15 @@ namespace WAMP_DS
                 DatabaseName = dialog.DatabaseName
             };
 
-
-            projectCreationWindow =
-                new ProjectCreationWindow()
-                {
-                    Owner = this
-                };
-
+            projectCreationWindow = new ProjectCreationWindow()
+            {
+                Owner = this
+            };
 
             projectCreationWindow.Show();
 
-
             bool created =
                 await projectCreationManager.CreateProject(options);
-
 
             if (!created)
             {
@@ -2069,13 +1812,13 @@ namespace WAMP_DS
                 return;
             }
 
-
             projectCreationWindow?.SetComplete();
 
             projectCreationWindow = null;
 
-
             RefreshProjectTree();
+
+            await LoadDockedPreview();
         }
 
         private async void Window_PreviewKeyDown(
@@ -2161,8 +1904,7 @@ namespace WAMP_DS
                 OpenDocument document
                 in editorManager.OpenDocuments.ToList())
             {
-                if (!CanCloseDocument(
-                    document))
+                if (!CanCloseDocument(document))
                 {
                     e.Cancel =
                         true;
@@ -2190,40 +1932,41 @@ namespace WAMP_DS
         }
 
         private const string NoProjectPage = @"
-<!DOCTYPE html>
-<html>
-<head>
-<style>
-body {
-    background:#1E1E1E;
-    color:#CCCCCC;
-    font-family:'Segoe UI';
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:0;
-}
-.container {
-    text-align:center;
-}
-.title {
-    font-size:22px;
-}
-.text {
-    color:#888888;
-    margin-top:10px;
-}
-</style>
-</head>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <style>
+                body {
+                    background:#1E1E1E;
+                    color:#CCCCCC;
+                    font-family:'Segoe UI';
+                    height:100vh;
+                    display:flex;
+                    justify-content:center;
+                    align-items:center;
+                    margin:0;
+                }
+                .container {
+                    text-align:center;
+                }
+                .title {
+                    font-size:22px;
+                }
+                .text {
+                    color:#888888;
+                    margin-top:10px;
+                }
+                </style>
+            </head>
 
-<body>
-<div class='container'>
-    <div class='title'>No project loaded</div>
-    <div class='text'>Open or create a project to start previewing.</div>
-</div>
-</body>
-</html>";
+            <body>
+                <div class='container'>
+                    <div class='title'>No project loaded</div>
+                    <div class='text'>Open or create a project to start previewing.</div>
+                </div>
+            </body>
+            </html>
+        ";
 
         private async Task ShowNoProjectLoaded()
         {
@@ -2237,8 +1980,7 @@ body {
         }
 
         private void LivePreviewBrowser_NavigationStarting(
-            object? sender,
-            Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
+            object? sender,            Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
         {
             ClearOutput();
 
@@ -2252,62 +1994,46 @@ body {
             string? projectPath =
                 projectManager.CurrentProjectPath;
 
-
             if (string.IsNullOrEmpty(projectPath))
             {
                 await ShowNoProjectLoaded();
                 return;
             }
 
-
-            ProjectSettings? settings =
-                phpPreviewManager.LoadProjectSettings(
+            ProjectSettings? settings = phpPreviewManager.LoadProjectSettings(
                     projectPath
-                );
-
+            );
 
             string? previewUrl = null;
-
 
             if (settings != null &&
                 !string.IsNullOrWhiteSpace(settings.Domain))
             {
-                string protocol =
-                    settings.Ssl
-                        ? "https"
-                        : "http";
+                string protocol = settings.Ssl? "https" : "http";
 
-
-                previewUrl =
-                    $"{protocol}://{settings.Domain}/";
+                previewUrl = $"{protocol}://{settings.Domain}/";
             }
             else
             {
-                string? previewFilePath =
-                    phpPreviewManager.SelectPreviewEntryPoint(
-                        projectPath
-                    );
-
+                string? previewFilePath = phpPreviewManager.SelectPreviewEntryPoint(
+                    projectPath
+                );
 
                 if (string.IsNullOrEmpty(previewFilePath))
                     return;
-
 
                 bool started =
                     await phpPreviewManager.StartPhpServer(
                         projectPath
                     );
 
-
                 if (!started)
                     return;
 
-
-                previewUrl =
-                    phpPreviewManager.GetPreviewUrl(
-                        projectPath,
-                        previewFilePath
-                    );
+                previewUrl = phpPreviewManager.GetPreviewUrl(
+                    projectPath,
+                    previewFilePath
+                );
             }
 
             await LivePreviewBrowser.EnsureCoreWebView2Async();
@@ -2320,13 +2046,11 @@ body {
                 webMessageHooked = true;
             }
 
-            LivePreviewBrowser.Source =
-                new Uri(previewUrl);
+            LivePreviewBrowser.Source = new Uri(previewUrl);
         }
 
         private void LivePreviewBrowser_WebMessageReceived(
-            object? sender,
-            Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
+            object? sender,            Microsoft.Web.WebView2.Core.CoreWebView2WebMessageReceivedEventArgs e)
         {
             WriteOutput(
                 e.TryGetWebMessageAsString()
@@ -2334,8 +2058,7 @@ body {
         }
 
         private void LivePreviewBrowser_NavigationCompleted(
-            object? sender,
-            Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
+            object? sender,            Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs e)
         {
             if (!e.IsSuccess)
                 return;
@@ -2361,7 +2084,6 @@ body {
             {
                 Brush colour =
                     System.Windows.Media.Brushes.LightGray;
-
 
                 if (message.StartsWith("[ERROR]"))
                 {

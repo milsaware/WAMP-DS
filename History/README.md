@@ -25,3 +25,7 @@ Each entry records not only what changed, but also the reasoning, problems, solu
 </details>
 
 </details>
+
+---
+
+**[← Back to WAMP-DS](../)**

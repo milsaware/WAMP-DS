@@ -58,20 +58,13 @@ namespace WAMP_DS.Managers
                 switch (options.ProjectType)
                 {
                     case ProjectType.Html:
-                        CreateHtmlProject(
-                            projectPath,
-                            options.ProjectName
-                        );
-                        break;
-
-
                     case ProjectType.Php:
-                        CreatePhpProject(
+                        CreateProjectFiles(
                             projectPath,
-                            options.ProjectName
+                            options.ProjectName,
+                            options.ProjectType
                         );
                         break;
-
 
                     case ProjectType.CodeIgniter:
                         CreatePhpProject(
@@ -79,7 +72,6 @@ namespace WAMP_DS.Managers
                             options.ProjectName
                         );
                         break;
-
 
                     case ProjectType.Laravel:
                         CreateLaravelProject(
