@@ -18,6 +18,10 @@ Each entry records not only what changed, but also the reasoning, problems, solu
 
 <br>
 
+- **[17 August 2026 — Editor Refinement & Developer Experience](2026/08/17/)**
+  
+  Continued real-world development inside WAMP-DS, adding editor improvements including line and selection duplication, Save As keyboard support, a cache-bypassing live preview refresh and a new editor context menu. Future development ideas were also documented for the first time.
+
 - **[16 August 2026 — First Real-World Development Bugs](2026/08/16/)**
   
   The first bugs discovered while using WAMP-DS for actual development are documented, including issues with project scaffolding, the Project Explorer and the live preview workflow.
