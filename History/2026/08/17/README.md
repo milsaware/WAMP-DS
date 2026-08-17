@@ -1,7 +1,7 @@
 # WAMP-DS Development History — 17 August 2026
 
 **Milestone:** Continuing real-world development using WAMP-DS  
-**Focus:** Developer experience, editor refinement and usability  
+**Focus:** Developer experience, editor refinement, live preview and usability  
 **Project:** WAMP-DS
 
 ---
@@ -26,27 +26,23 @@ And some have been small usability improvements that only become obvious when yo
 
 ## Today's Development
 
-The main focus so far has been the Code Editor.
+The main focus has continued to be the developer experience inside WAMP-DS.
 
-The editor has received a significant usability improvement with the addition of Find and Replace functionality, including:
+The Code Editor received several usability improvements, building on the Find and Replace functionality added earlier in the session.
 
-- `Ctrl+F` for Find
-- `Ctrl+H` for Replace
-- Match Case support
-- Replace and Replace All
-- Keyboard navigation
-- Selection-aware searching
-- An integrated interface that expands between Find and Replace
+`Ctrl+D` was added to duplicate the current line, with selection-aware behaviour allowing only selected content to be duplicated when text is highlighted.
 
-Rather than treating Replace as a separate window, it extends the existing Find interface.
+The editor also gained a proper context menu, bringing common operations into the editor through the familiar right-click workflow.
 
-This keeps the workflow inside the editor and makes the feature feel like part of the environment rather than an additional tool appearing on top of it.
+Keyboard support was also refined so that `Ctrl+Shift+S` uses the existing Save As functionality directly.
 
-A further editor improvement was also added with `Ctrl+D`, allowing lines to be duplicated quickly.
+These are relatively small features individually, but they are exactly the sort of things that make an editor feel more natural to use.
 
-This was then extended so that when text is selected, only the selected content is duplicated rather than the entire line.
+The live preview also received attention after a real-world issue was discovered with CSS changes not always appearing after a normal refresh.
 
-These are relatively small features individually, but they are exactly the sort of things that make an editor more pleasant to use.
+The preview refresh was changed to bypass the browser cache, ensuring that saved changes are reflected immediately in the embedded preview.
+
+This was another example of an issue that only became obvious through actually using WAMP-DS for development.
 
 ---
 
@@ -55,7 +51,9 @@ These are relatively small features individually, but they are exactly the sort 
 The individual changes discovered and implemented during today's session are being documented separately.
 
 - **[Development Entry #04 — Find and Replace Added to the Code Editor](./04.md)**
-- **[Development Entry #05 — Selection-Aware Line Duplication](./05.md)**
+- **[Development Entry #05 — Ctrl+D Line and Selection Duplication](./05.md)**
+- **[Development Entry #06 — Preview Cache Refresh](./06.md)**
+- **[Development Entry #07 — Editor Context Menu](./07.md)**
 
 More entries will be added as development continues.
 
@@ -73,11 +71,29 @@ Being able to duplicate a line with a single shortcut.
 
 Being able to duplicate only the code that is currently selected.
 
+Being able to right-click inside the editor and access familiar editing operations.
+
+Being able to save and immediately see CSS changes reflected in the preview.
+
 None of these are particularly large features.
 
 But they remove small interruptions from the development workflow.
 
 And when those interruptions are removed repeatedly throughout a working day, the difference becomes noticeable.
+
+---
+
+## Looking Beyond The Current Build
+
+Today's development also led to the creation of a new `Future` section within the project documentation.
+
+The purpose is to record ideas that may eventually become part of WAMP-DS without presenting them as committed features or promises.
+
+This provides somewhere to capture ideas as they occur during development while keeping them separate from the completed development history.
+
+Early ideas include potential FTP deployment support and future AI-assisted development integration.
+
+The intention is to let these ideas develop naturally rather than forcing them into the current development roadmap.
 
 ---
 
@@ -92,6 +108,14 @@ They are becoming a record of what it is actually like to develop software insid
 Yesterday was about discovering that distinction.
 
 Today is beginning to show what can come from it.
+
+The software is being used.
+
+Small problems are being noticed.
+
+Features are being added because they are useful.
+
+And future ideas are being recorded as they occur.
 
 **Build it.  
 Use it.  
