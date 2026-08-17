@@ -1,26 +1,345 @@
 ﻿<UserControl x:Class="WAMP_DS.Controls.CodeEditor"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-             mc:Ignorable="d">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+    mc:Ignorable="d">
 
-    <Grid Background="#D8CBB5">
+    <UserControl.Resources>
 
-        <avalonEdit:TextEditor x:Name="EditorTextBox"
-                               Background="#D8CBB5"
-                               Foreground="#2B2520"
-                               FontFamily="Consolas"
-                               FontSize="14"
-                               ShowLineNumbers="True"
-                               WordWrap="False"
-                               HorizontalScrollBarVisibility="Auto"
-                               VerticalScrollBarVisibility="Auto"
-                               Padding="10"
-                               VerticalContentAlignment="Top"
-                               HorizontalContentAlignment="Left"
-                               LineNumbersForeground="#999999"/>
+        <!-- ====================================================== -->
+        <!-- WAMP-DS EDITOR COLOURS -->
+        <!-- ====================================================== -->
+
+        <SolidColorBrush
+            x:Key="EditorBackgroundBrush"
+            Color="#D8CBB5"/>
+
+        <SolidColorBrush
+            x:Key="PanelBackgroundBrush"
+            Color="#252526"/>
+
+        <SolidColorBrush
+            x:Key="InputBackgroundBrush"
+            Color="#1E1E1E"/>
+
+        <SolidColorBrush
+            x:Key="PanelForegroundBrush"
+            Color="#CCCCCC"/>
+
+        <SolidColorBrush
+            x:Key="PanelBorderBrush"
+            Color="#666666"/>
+
+        <SolidColorBrush
+            x:Key="ButtonBackgroundBrush"
+            Color="#3F3F46"/>
+
+        <SolidColorBrush
+            x:Key="ButtonHoverBrush"
+            Color="#007ACC"/>
+
+
+        <!-- ====================================================== -->
+        <!-- EDITOR CONTEXT MENU -->
+        <!-- ====================================================== -->
+
+        <ContextMenu
+            x:Key="EditorContextMenu">
+
+            <MenuItem
+                Header="Cut"
+                Command="ApplicationCommands.Cut"/>
+
+            <MenuItem
+                Header="Copy"
+                Command="ApplicationCommands.Copy"/>
+
+            <MenuItem
+                Header="Paste"
+                Command="ApplicationCommands.Paste"/>
+
+            <Separator/>
+
+            <MenuItem
+                Header="Select All"
+                Command="ApplicationCommands.SelectAll"/>
+
+            <Separator/>
+
+            <MenuItem
+                Header="Find"
+                Click="ContextFind_Click"/>
+
+            <MenuItem
+                Header="Replace"
+                Click="ContextReplace_Click"/>
+
+            <MenuItem
+                Header="Duplicate"
+                Click="ContextDuplicate_Click"/>
+
+        </ContextMenu>
+
+
+        <!-- ====================================================== -->
+        <!-- SEARCH INPUT -->
+        <!-- ====================================================== -->
+
+        <Style
+            x:Key="SearchTextBoxStyle"
+            TargetType="{x:Type TextBox}">
+
+            <Setter
+                Property="Background"
+                Value="{StaticResource InputBackgroundBrush}"/>
+
+            <Setter
+                Property="Foreground"
+                Value="{StaticResource PanelForegroundBrush}"/>
+
+            <Setter
+                Property="BorderBrush"
+                Value="{StaticResource PanelBorderBrush}"/>
+
+            <Setter
+                Property="BorderThickness"
+                Value="1"/>
+
+            <Setter
+                Property="Padding"
+                Value="7,0"/>
+
+            <Setter
+                Property="Height"
+                Value="28"/>
+
+            <Setter
+                Property="VerticalContentAlignment"
+                Value="Center"/>
+
+            <Setter
+                Property="FontFamily"
+                Value="Segoe UI"/>
+
+            <Setter
+                Property="FontSize"
+                Value="13"/>
+
+        </Style>
+
+
+        <!-- ====================================================== -->
+        <!-- SEARCH BUTTON -->
+        <!-- ====================================================== -->
+
+        <Style
+            x:Key="SearchButtonStyle"
+            TargetType="{x:Type Button}">
+
+            <Setter
+                Property="Background"
+                Value="{StaticResource ButtonBackgroundBrush}"/>
+
+            <Setter
+                Property="Foreground"
+                Value="{StaticResource PanelForegroundBrush}"/>
+
+            <Setter
+                Property="BorderBrush"
+                Value="Transparent"/>
+
+            <Setter
+                Property="BorderThickness"
+                Value="0"/>
+
+            <Setter
+                Property="Padding"
+                Value="10,5"/>
+
+            <Setter
+                Property="Margin"
+                Value="0,0,6,0"/>
+
+            <Setter
+                Property="FocusVisualStyle"
+                Value="{x:Null}"/>
+
+        </Style>
+
+    </UserControl.Resources>
+
+
+    <!-- ========================================================== -->
+    <!-- EDITOR -->
+    <!-- ========================================================== -->
+
+    <Grid
+        Background="{StaticResource EditorBackgroundBrush}">
+
+        <avalonEdit:TextEditor
+            x:Name="EditorTextBox"
+            Background="{StaticResource EditorBackgroundBrush}"
+            Foreground="#2B2520"
+            FontFamily="Consolas"
+            FontSize="14"
+            ShowLineNumbers="True"
+            WordWrap="False"
+            HorizontalScrollBarVisibility="Auto"
+            VerticalScrollBarVisibility="Auto"
+            Padding="10"
+            VerticalContentAlignment="Top"
+            HorizontalContentAlignment="Left"
+            LineNumbersForeground="#999999"
+            ContextMenu="{StaticResource EditorContextMenu}"/>
+
+
+        <!-- ====================================================== -->
+        <!-- SEARCH / REPLACE PANEL -->
+        <!-- ====================================================== -->
+
+        <Border
+            x:Name="SearchPanel"
+            Visibility="Collapsed"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="0,0,0,0"
+            Padding="10"
+            Background="{StaticResource PanelBackgroundBrush}"
+            BorderBrush="{StaticResource PanelBorderBrush}"
+            BorderThickness="1">
+
+            <StackPanel>
+
+
+                <!-- ================================================== -->
+                <!-- FIND -->
+                <!-- ================================================== -->
+
+                <Grid
+                    Margin="0,0,0,6">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition
+                            Width="65"/>
+
+                        <ColumnDefinition
+                            Width="220"/>
+
+                        <ColumnDefinition
+                            Width="Auto"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="Find:"
+                        Foreground="{StaticResource PanelForegroundBrush}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,8,0"/>
+
+
+                    <TextBox
+                        x:Name="FindTextBox"
+                        Grid.Column="1"
+                        Style="{StaticResource SearchTextBoxStyle}"
+                        KeyDown="SearchTextBox_KeyDown"/>
+
+
+                    <Button
+                        Grid.Column="2"
+                        Content="×"
+                        Width="28"
+                        Height="28"
+                        Margin="6,0,0,0"
+                        Background="Transparent"
+                        Foreground="{StaticResource PanelForegroundBrush}"
+                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        FocusVisualStyle="{x:Null}"
+                        Click="CloseSearchPanel_Click"/>
+
+                </Grid>
+
+
+                <!-- ================================================== -->
+                <!-- REPLACE -->
+                <!-- ================================================== -->
+
+                <Grid
+                    x:Name="ReplaceRow"
+                    Visibility="Collapsed"
+                    Margin="0,0,0,8">
+
+                    <Grid.ColumnDefinitions>
+
+                        <ColumnDefinition
+                            Width="65"/>
+
+                        <ColumnDefinition
+                            Width="220"/>
+
+                    </Grid.ColumnDefinitions>
+
+
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="Replace:"
+                        Foreground="{StaticResource PanelForegroundBrush}"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Center"
+                        Margin="0,0,8,0"/>
+
+
+                    <TextBox
+                        x:Name="ReplaceTextBox"
+                        Grid.Column="1"
+                        Style="{StaticResource SearchTextBoxStyle}"
+                        KeyDown="ReplaceTextBox_KeyDown"/>
+
+                </Grid>
+
+
+                <!-- ================================================== -->
+                <!-- OPTIONS -->
+                <!-- ================================================== -->
+
+                <StackPanel
+                    Orientation="Horizontal"
+                    Margin="65,0,0,0">
+
+                    <CheckBox
+                        x:Name="MatchCaseCheckBox"
+                        Content="Match Case"
+                        Foreground="{StaticResource PanelForegroundBrush}"
+                        VerticalAlignment="Center"
+                        Margin="0,0,12,0"/>
+
+
+                    <Button
+                        x:Name="ReplaceButton"
+                        Content="Replace"
+                        Style="{StaticResource SearchButtonStyle}"
+                        Visibility="Collapsed"
+                        Click="ReplaceButton_Click"/>
+
+
+                    <Button
+                        x:Name="ReplaceAllButton"
+                        Content="Replace All"
+                        Style="{StaticResource SearchButtonStyle}"
+                        Visibility="Collapsed"
+                        Click="ReplaceAllButton_Click"/>
+
+                </StackPanel>
+
+            </StackPanel>
+
+        </Border>
 
     </Grid>
 

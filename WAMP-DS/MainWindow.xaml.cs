@@ -1882,9 +1882,12 @@ namespace WAMP_DS
 
                 if (saved)
                 {
-                    previewWindow?.RefreshPreview();
+                    if (previewWindow != null)
+                    {
+                        await previewWindow.RefreshPreview();
+                    }
 
-                    RefreshDockedPreview();
+                    await RefreshDockedPreview();
                 }
 
                 EditorTabs.SetDocuments(
@@ -2064,12 +2067,16 @@ namespace WAMP_DS
                 return;
         }
 
-        private void RefreshDockedPreview()
+        private async Task RefreshDockedPreview()
         {
             if (LivePreviewBrowser.CoreWebView2 != null)
             {
                 ClearOutput();
-                LivePreviewBrowser.Reload();
+
+                await LivePreviewBrowser.CoreWebView2.CallDevToolsProtocolMethodAsync(
+                    "Page.reload",
+                    "{\"ignoreCache\":true}"
+                );
             }
         }
 

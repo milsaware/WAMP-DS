@@ -81,11 +81,14 @@ namespace WAMP_DS.Views
                 new Uri(previewUrl);
         }
 
-        public void RefreshPreview()
+        public async Task RefreshPreview()
         {
             if (Browser.CoreWebView2 != null)
             {
-                Browser.Reload();
+                await Browser.CoreWebView2.CallDevToolsProtocolMethodAsync(
+                    "Page.reload",
+                    "{\"ignoreCache\":true}"
+                );
             }
         }
 
