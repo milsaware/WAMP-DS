@@ -1,10 +1,11 @@
 ﻿using Microsoft.Win32;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Media;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
 using WAMP_DS.Core;
 using WAMP_DS.Managers;
 using WAMP_DS.Models;
@@ -16,7 +17,6 @@ namespace WAMP_DS
     {
         private readonly ProjectManager projectManager = new();
         private readonly EditorManager editorManager;
-        private PreviewWindow? previewWindow;
         private readonly PreviewManager phpPreviewManager = new();
         private readonly MySQLManager mysqlManager;
         private readonly MySQLSettingsManager mysqlSettingsManager;
@@ -28,15 +28,24 @@ namespace WAMP_DS
         private readonly OpenSearchManager openSearchManager = new();
         private readonly DeveloperToolsManager developerToolsManager;
         private readonly MagentoManager magentoManager;
-        private bool _isClosing;
 
+        private bool _isClosing;
+        private bool isMobilePreview = false;
         private bool webMessageHooked = false;
+
+        private PreviewWindow? previewWindow;
 
         public MainWindow()
         {
             InitializeComponent();
 
             LivePreviewBrowser.CoreWebView2InitializationCompleted += LivePreviewBrowser_CoreWebView2InitializationCompleted;
+
+            LivePreviewBrowser.SourceChanged += LivePreviewBrowser_SourceChanged;
+
+            LivePreviewBrowser.NavigationStarting += LivePreviewBrowser_NavigationStarting;
+
+            LivePreviewBrowser.NavigationCompleted += LivePreviewBrowser_NavigationCompleted;
 
             installationValidator = new InstallationValidator(
                 installationPaths
@@ -1726,7 +1735,7 @@ namespace WAMP_DS
             return null;
         }
 
-        private void SaveButton_Click(
+        private async void SaveButton_Click(
             object sender,
             RoutedEventArgs e)
         {
@@ -1736,7 +1745,7 @@ namespace WAMP_DS
             {
                 previewWindow?.RefreshPreview();
 
-                RefreshDockedPreview();
+                await RefreshDockedPreview();
             }
         }
 
@@ -1975,10 +1984,6 @@ namespace WAMP_DS
         {
             await LivePreviewBrowser.EnsureCoreWebView2Async();
 
-            LivePreviewBrowser.NavigationStarting += LivePreviewBrowser_NavigationStarting;
-
-            LivePreviewBrowser.NavigationCompleted += LivePreviewBrowser_NavigationCompleted;
-
             LivePreviewBrowser.NavigateToString(NoProjectPage);
         }
 
@@ -2049,7 +2054,9 @@ namespace WAMP_DS
                 webMessageHooked = true;
             }
 
-            LivePreviewBrowser.Source = new Uri(previewUrl);
+            LivePreviewBrowser.CoreWebView2.Navigate(
+                previewUrl
+            );
         }
 
         private void LivePreviewBrowser_WebMessageReceived(
@@ -2128,6 +2135,165 @@ namespace WAMP_DS
 
                 OutputPanel.ScrollToEnd();
             });
+        }
+
+        private async void PreviewBackButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            await LivePreviewBrowser.EnsureCoreWebView2Async();
+
+            if (LivePreviewBrowser.CoreWebView2.CanGoBack)
+            {
+                LivePreviewBrowser.CoreWebView2.GoBack();
+            }
+        }
+
+        private async void PreviewForwardButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            await LivePreviewBrowser.EnsureCoreWebView2Async();
+
+            if (LivePreviewBrowser.CoreWebView2.CanGoForward)
+            {
+                LivePreviewBrowser.CoreWebView2.GoForward();
+            }
+        }
+
+        private async void PreviewRefreshButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            await LivePreviewBrowser.EnsureCoreWebView2Async();
+
+            LivePreviewBrowser.CoreWebView2.Reload();
+        }
+
+        private async void PreviewUrlTextBox_KeyDown(
+            object sender,
+            KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+
+            string url =
+                PreviewUrlTextBox.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+
+            if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) &&
+                !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+            {
+                url = "http://" + url;
+            }
+
+            if (!Uri.TryCreate(
+                url,
+                UriKind.Absolute,
+                out Uri? uri))
+            {
+                MessageBox.Show(
+                    "The URL is not valid.",
+                    "WAMP-DS",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+
+                return;
+            }
+
+            await LivePreviewBrowser.EnsureCoreWebView2Async();
+
+            LivePreviewBrowser.CoreWebView2.Navigate(
+                uri.ToString()
+            );
+
+            e.Handled = true;
+        }
+
+        private void LivePreviewBrowser_SourceChanged(
+    object? sender,
+    Microsoft.Web.WebView2.Core.CoreWebView2SourceChangedEventArgs e)
+        {
+            if (LivePreviewBrowser.Source == null)
+                return;
+
+            PreviewUrlTextBox.Text =
+                LivePreviewBrowser.Source.ToString();
+
+            UpdatePreviewNavigationButtons();
+        }
+
+        private void UpdatePreviewNavigationButtons()
+        {
+            if (LivePreviewBrowser.CoreWebView2 == null)
+                return;
+
+            PreviewBackButton.IsEnabled =
+                LivePreviewBrowser.CoreWebView2.CanGoBack;
+
+            PreviewForwardButton.IsEnabled =
+                LivePreviewBrowser.CoreWebView2.CanGoForward;
+        }
+
+        private void PreviewExternalButton_Click(
+            object sender,
+            RoutedEventArgs e)
+        {
+            string? url =
+                LivePreviewBrowser.Source?.ToString();
+
+            if (string.IsNullOrWhiteSpace(url))
+                return;
+
+            try
+            {
+                Process.Start(
+                    new ProcessStartInfo
+                    {
+                        FileName = url,
+                        UseShellExecute = true
+                    }
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    $"Unable to open the page in the external browser.\n\n{ex.Message}",
+                    "WAMP-DS",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
+        }
+
+        private void MobilePreviewButton_Click(
+    object sender,
+    RoutedEventArgs e)
+        {
+            isMobilePreview = !isMobilePreview;
+
+            if (LivePreviewBrowser.CoreWebView2 == null)
+                return;
+
+            LivePreviewBrowser.CoreWebView2.Settings.UserAgent =
+                isMobilePreview
+                    ? "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1"
+                    : "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
+
+            MobilePreviewButton.Content =
+                isMobilePreview
+                    ? "📱"
+                    : "🖥️";
+
+            MobilePreviewButton.ToolTip =
+                isMobilePreview
+                    ? "Mobile Preview"
+                    : "Desktop Preview";
+
+            LivePreviewBrowser.Reload();
         }
     }
 }

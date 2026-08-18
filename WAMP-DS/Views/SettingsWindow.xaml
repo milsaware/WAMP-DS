@@ -10,280 +10,197 @@
         Background="#1E1E1E">
 
     <Grid>
-
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="180"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-
         <!-- Settings Navigation -->
-        <Border Grid.Column="0"
-        Background="#252526">
-
+        <Border Grid.Column="0" Background="#252526">
             <StackPanel>
-
                 <TextBlock Text="SETTINGS"
-                   Foreground="#CCCCCC"
-                   FontSize="11"
-                   FontWeight="SemiBold"
-                   Margin="15,20,15,15"/>
-
-
-                <!-- General -->
-                <Button x:Name="GeneralSettingsButton"
-                Content="General"
-                Height="40"
-                HorizontalContentAlignment="Left"
-                Padding="15,0"
-                Background="#2D2D30"
-                BorderThickness="0"
-                Foreground="White"
-                Click="GeneralSettingsButton_Click"/>
-
+                    Foreground="#CCCCCC"
+                    FontSize="11"
+                    FontWeight="SemiBold"
+                    Margin="15,20,15,15"/>
 
                 <!-- Apache -->
                 <Button x:Name="ApacheSettingsButton"
-                Content="Apache"
-                Height="40"
-                HorizontalContentAlignment="Left"
-                Padding="15,0"
-                Background="Transparent"
-                BorderThickness="0"
-                Foreground="#CCCCCC"
-                Click="ApacheSettingsButton_Click"/>
-
+                    Content="Apache"
+                    Height="40"
+                    HorizontalContentAlignment="Left"
+                    Padding="15,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#CCCCCC"
+                    Click="ApacheSettingsButton_Click"/>
 
                 <!-- PHP -->
                 <Button x:Name="PhpSettingsButton"
-                Content="PHP"
-                Height="40"
-                HorizontalContentAlignment="Left"
-                Padding="15,0"
-                Background="Transparent"
-                BorderThickness="0"
-                Foreground="#CCCCCC"
-                Click="PhpSettingsButton_Click"/>
-
+                    Content="PHP"
+                    Height="40"
+                    HorizontalContentAlignment="Left"
+                    Padding="15,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#CCCCCC"
+                    Click="PhpSettingsButton_Click"/>
 
                 <!-- MySQL -->
                 <Button x:Name="MySqlSettingsButton"
-                Content="MySQL"
-                Height="40"
-                HorizontalContentAlignment="Left"
-                Padding="15,0"
-                Background="Transparent"
-                BorderThickness="0"
-                Foreground="#CCCCCC"
-                Click="MySqlSettingsButton_Click"/>
-
+                    Content="MySQL"
+                    Height="40"
+                    HorizontalContentAlignment="Left"
+                    Padding="15,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#CCCCCC"
+                    Click="MySqlSettingsButton_Click"/>
 
                 <!-- HTTPS -->
                 <Button x:Name="HttpsSettingsButton"
-                Content="HTTPS / SSL"
-                Height="40"
-                HorizontalContentAlignment="Left"
-                Padding="15,0"
-                Background="Transparent"
-                BorderThickness="0"
-                Foreground="#CCCCCC"
-                Click="HttpsSettingsButton_Click"/>
-
+                    Content="HTTPS / SSL"
+                    Height="40"
+                    HorizontalContentAlignment="Left"
+                    Padding="15,0"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Foreground="#CCCCCC"
+                    Click="HttpsSettingsButton_Click"/>
             </StackPanel>
-
         </Border>
 
-
         <!-- Settings Content -->
-        <Grid Grid.Column="1"
-              Margin="25">
-
-            <!-- General Settings -->
-            <Grid x:Name="GeneralSettingsPanel">
-
-                <StackPanel>
-
-                    <TextBlock Text="General"
-                               Foreground="#CCCCCC"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,25"/>
-
-                    <TextBlock Text="General WAMP-DS application settings will appear here."
-                               Foreground="#888888"
-                               FontSize="13"/>
-
-                </StackPanel>
-
-            </Grid>
-
+        <Grid Grid.Column="1" Margin="25">
             <!-- Apache Settings -->
-            <Grid x:Name="ApacheSettingsPanel"
-      Visibility="Collapsed">
-
+            <Grid x:Name="ApacheSettingsPanel">
                 <StackPanel>
-
                     <TextBlock Text="Apache"
-                   Foreground="#CCCCCC"
-                   FontSize="20"
-                   FontWeight="SemiBold"
-                   Margin="0,0,0,10"/>
+                        Foreground="#CCCCCC"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Margin="0,0,0,10"/>
 
                     <TextBlock Text="Configure the Apache web server used by WAMP-DS."
-                   Foreground="#888888"
-                   FontSize="13"
-                   Margin="0,0,0,25"/>
-
+                        Foreground="#888888"
+                        FontSize="13"
+                        Margin="0,0,0,25"/>
 
                     <!-- Apache Runtime -->
-
                     <Border Background="#252526"
-                BorderBrush="#3F3F46"
-                BorderThickness="1"
-                Padding="15"
-                Margin="0,0,0,15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15"
+                        Margin="0,0,0,15">
 
                         <Grid>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-
                             <StackPanel>
-
                                 <TextBlock Text="APACHE RUNTIME"
-                               Foreground="#888888"
-                               FontSize="11"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,8"/>
-
+                                    Foreground="#888888"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,8"/>
 
                                 <TextBlock x:Name="ApacheVersionText"
-                               Text="Apache 2.4.68"
-                               Foreground="#CCCCCC"
-                               FontSize="16"
-                               FontWeight="SemiBold"/>
-
+                                    Text="Apache 2.4.68"
+                                    Foreground="#CCCCCC"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"/>
 
                                 <TextBlock Text="Active Apache server"
-                               Foreground="#888888"
-                               FontSize="12"
-                               Margin="0,4,0,0"/>
-
+                                    Foreground="#888888"
+                                    FontSize="12"
+                                    Margin="0,4,0,0"/>
                             </StackPanel>
 
-
                             <Border Grid.Column="1"
-                        Background="#1E4620"
-                        BorderBrush="#2E7D32"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Padding="10,5"
-                        VerticalAlignment="Center">
+                                Background="#1E4620"
+                                BorderBrush="#2E7D32"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                Padding="10,5"
+                                VerticalAlignment="Center">
 
                                 <TextBlock x:Name="ApacheStatusText"
-                               Text="RUNNING"
-                               Foreground="#81C784"
-                               FontSize="11"
-                               FontWeight="SemiBold"/>
-
+                                    Text="RUNNING"
+                                    Foreground="#81C784"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"/>
                             </Border>
-
                         </Grid>
-
                     </Border>
 
                     <!-- Apache Configuration -->
-
                     <Border Background="#252526"
-                BorderBrush="#3F3F46"
-                BorderThickness="1"
-                Padding="15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15">
 
                         <StackPanel>
-
-
                             <TextBlock Text="APACHE CONFIGURATION"
-                           Foreground="#888888"
-                           FontSize="11"
-                           FontWeight="SemiBold"
-                           Margin="0,0,0,15"/>
-
-
+                                Foreground="#888888"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,15"/>
 
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
 
                                 <TextBlock Text="HTTP Port"
-                               Foreground="#888888"
-                               FontSize="12"/>
-
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="ApacheHttpPortText"
-                               Grid.Column="1"
-                               Text="80"
-                               Foreground="#CCCCCC"
-                               FontSize="12"/>
-
+                                    Grid.Column="1"
+                                    Text="80"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"/>
                             </Grid>
 
-
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
 
                                 <TextBlock Text="HTTPS Port"
-                               Foreground="#888888"
-                               FontSize="12"/>
-
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="ApacheHttpsPortSettingsText"
-                               Grid.Column="1"
-                               Text="443"
-                               Foreground="#CCCCCC"
-                               FontSize="12"/>
-
+                                    Grid.Column="1"
+                                    Text="443"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"/>
                             </Grid>
 
-
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-
                                 <TextBlock Text="Document Root"
-               Foreground="#888888"
-               FontSize="12"/>
-
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="ApacheDocumentRootText"
-               Grid.Column="1"
-               Text="—"
-               Foreground="#CCCCCC"
-               FontSize="12"
-               TextWrapping="Wrap"/>
-
+                                    Grid.Column="1"
+                                    Text="—"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"
+                                    TextWrapping="Wrap"/>
                             </Grid>
 
-
                             <Grid Margin="0,20,0,0">
-
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="Auto"/>
@@ -294,726 +211,602 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-
                                 <!-- Row 1 -->
-
                                 <Button Content="Modules"
-            Grid.Row="0"
-            Grid.Column="0"
-            Height="30"
-            Margin="0,0,10,10"
-            Background="#333333"
-            BorderBrush="#555555"
-            Foreground="#CCCCCC"
-            Click="OpenApacheModulesButton_Click"/>
-
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Height="30"
+                                    Margin="0,0,10,10"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="OpenApacheModulesButton_Click"/>
 
                                 <Button Content="Virtual Hosts"
-            Grid.Row="0"
-            Grid.Column="1"
-            Height="30"
-            Margin="0,0,0,10"
-            Background="#333333"
-            BorderBrush="#555555"
-            Foreground="#CCCCCC"
-            Click="OpenApacheVirtualHostsButton_Click"/>
-
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    Margin="0,0,0,10"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="OpenApacheVirtualHostsButton_Click"/>
 
                                 <!-- Row 2 -->
-
                                 <Button Content="httpd.conf"
-            Grid.Row="1"
-            Grid.Column="0"
-            Height="30"
-            Margin="0,0,10,0"
-            Background="#333333"
-            BorderBrush="#555555"
-            Foreground="#CCCCCC"
-            Click="OpenApacheConfigButton_Click"/>
-
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    Height="30"
+                                    Margin="0,0,10,0"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="OpenApacheConfigButton_Click"/>
 
                                 <Button Content="Logs"
-            Grid.Row="1"
-            Grid.Column="1"
-            Height="30"
-            Background="#333333"
-            BorderBrush="#555555"
-            Foreground="#CCCCCC"
-            Click="OpenApacheLogsButton_Click"/>
-
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    Height="30"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="OpenApacheLogsButton_Click"/>
                             </Grid>
-
-
                         </StackPanel>
-
                     </Border>
-
-
                 </StackPanel>
-
             </Grid>
 
-
             <!-- PHP Settings -->
-            <Grid x:Name="PhpSettingsPanel"
-      Visibility="Collapsed">
-
+            <Grid x:Name="PhpSettingsPanel" Visibility="Collapsed">
                 <StackPanel>
-
                     <TextBlock Text="PHP"
-                   Foreground="#CCCCCC"
-                   FontSize="20"
-                   FontWeight="SemiBold"
-                   Margin="0,0,0,10"/>
+                        Foreground="#CCCCCC"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Margin="0,0,0,10"/>
 
                     <TextBlock Text="Configure the PHP runtime used by WAMP-DS."
-                   Foreground="#888888"
-                   FontSize="13"
-                   Margin="0,0,0,25"/>
-
+                        Foreground="#888888"
+                        FontSize="13"
+                        Margin="0,0,0,25"/>
 
                     <!-- PHP Runtime Card -->
                     <Border Background="#252526"
-                BorderBrush="#3F3F46"
-                BorderThickness="1"
-                Padding="15"
-                Margin="0,0,0,15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15"
+                        Margin="0,0,0,15">
 
                         <Grid>
-
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-
                             <StackPanel>
-
                                 <TextBlock Text="PHP RUNTIME"
-                               Foreground="#888888"
-                               FontSize="11"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,8"/>
+                                    Foreground="#888888"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,8"/>
 
                                 <TextBlock Text="PHP 8.5.8"
-                               Foreground="#CCCCCC"
-                               FontSize="16"
-                               FontWeight="SemiBold"/>
+                                    Foreground="#CCCCCC"
+                                    FontSize="16"
+                                    FontWeight="SemiBold"/>
 
                                 <TextBlock Text="Active PHP runtime"
-                               Foreground="#888888"
-                               FontSize="12"
-                               Margin="0,4,0,0"/>
-
+                                    Foreground="#888888"
+                                    FontSize="12"
+                                    Margin="0,4,0,0"/>
                             </StackPanel>
 
-
                             <Border Grid.Column="1"
-                        Background="#1E4620"
-                        BorderBrush="#2E7D32"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        Padding="10,5"
-                        VerticalAlignment="Center">
+                                Background="#1E4620"
+                                BorderBrush="#2E7D32"
+                                BorderThickness="1"
+                                CornerRadius="3"
+                                Padding="10,5"
+                                VerticalAlignment="Center">
 
                                 <TextBlock Text="ACTIVE"
-                               Foreground="#81C784"
-                               FontSize="11"
-                               FontWeight="SemiBold"/>
-
+                                    Foreground="#81C784"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"/>
                             </Border>
-
                         </Grid>
-
                     </Border>
-
 
                     <!-- PHP Configuration -->
                     <Border Background="#252526"
-                BorderBrush="#3F3F46"
-                BorderThickness="1"
-                Padding="15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15">
 
                         <StackPanel>
-
                             <TextBlock Text="PHP CONFIGURATION"
-                           Foreground="#888888"
-                           FontSize="11"
-                           FontWeight="SemiBold"
-                           Margin="0,0,0,15"/>
-
+                                Foreground="#888888"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,15"/>
 
                             <!-- php.ini -->
                             <Grid Margin="0,0,0,15">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel>
-
                                     <TextBlock Text="PHP Configuration"
-                                   Foreground="#CCCCCC"
-                                   FontSize="13"
-                                   FontWeight="SemiBold"/>
+                                        Foreground="#CCCCCC"
+                                        FontSize="13"
+                                        FontWeight="SemiBold"/>
 
                                     <TextBlock Text="Edit PHP runtime settings and extensions."
-                                   Foreground="#888888"
-                                   FontSize="12"
-                                   Margin="0,4,0,0"/>
-
+                                        Foreground="#888888"
+                                        FontSize="12"
+                                        Margin="0,4,0,0"/>
                                 </StackPanel>
 
-
                                 <Button Grid.Column="1"
-                            Content="Open PHP Settings"
-                            Width="140"
-                            Height="30"
-                            Background="#333333"
-                            BorderBrush="#555555"
-                            Foreground="#CCCCCC"
-                            Click="OpenPhpSettingsButton_Click"/>
-
+                                    Content="Open PHP Settings"
+                                    Width="140"
+                                    Height="30"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="OpenPhpSettingsButton_Click"/>
                             </Grid>
-
 
                             <!-- php.ini location -->
                             <Border Height="1"
-                        Background="#3F3F46"
-                        Margin="0,0,0,15"/>
-
+                                Background="#3F3F46"
+                                Margin="0,0,0,15"/>
 
                             <TextBlock Text="CONFIGURATION FILE"
-                           Foreground="#888888"
-                           FontSize="11"
-                           FontWeight="SemiBold"
-                           Margin="0,0,0,8"/>
-
+                                Foreground="#888888"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,8"/>
 
                             <TextBlock Text="php.ini"
-                           Foreground="#CCCCCC"
-                           FontSize="13"/>
+                                Foreground="#CCCCCC"
+                                FontSize="13"/>
 
                             <TextBlock Text="runtimes\php\8.5.8\php.ini"
-                           Foreground="#888888"
-                           FontSize="11"
-                           Margin="0,4,0,0"
-                           TextWrapping="Wrap"/>
-
+                                Foreground="#888888"
+                                FontSize="11"
+                                Margin="0,4,0,0"
+                                TextWrapping="Wrap"/>
                         </StackPanel>
-
                     </Border>
-
                 </StackPanel>
-
             </Grid>
 
-
             <!-- MySQL Settings -->
-            <Grid x:Name="MySqlSettingsPanel"
-      Visibility="Collapsed">
-
+            <Grid x:Name="MySqlSettingsPanel" Visibility="Collapsed">
                 <StackPanel>
-
                     <TextBlock Text="MySQL"
-                   Foreground="#CCCCCC"
-                   FontSize="20"
-                   FontWeight="SemiBold"
-                   Margin="0,0,0,10"/>
+                        Foreground="#CCCCCC"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Margin="0,0,0,10"/>
 
                     <TextBlock Text="Configure the MySQL database server used by WAMP-DS."
-                   Foreground="#888888"
-                   FontSize="13"
-                   Margin="0,0,0,25"/>
+                        Foreground="#888888"
+                        FontSize="13"
+                        Margin="0,0,0,25"/>
 
                     <Border Background="#252526"
-                BorderBrush="#3F3F46"
-                BorderThickness="1"
-                Padding="15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15">
 
                         <StackPanel>
-
                             <TextBlock Text="MYSQL CONFIGURATION"
-               Foreground="#888888"
-               FontSize="11"
-               FontWeight="SemiBold"
-               Margin="0,0,0,15"/>
-
+                                Foreground="#888888"
+                                FontSize="11"
+                                FontWeight="SemiBold"
+                                Margin="0,0,0,15"/>
 
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
-
                                 <TextBlock Text="Status"
-                   Foreground="#888888"
-                   FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="MySqlStatusText"
-                   Grid.Column="1"
-                   Text="STOPPED"
-                   Foreground="#CCCCCC"
-                   FontSize="12"
-                   FontWeight="SemiBold"/>
-
+                                    Grid.Column="1"
+                                    Text="STOPPED"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"
+                                    FontWeight="SemiBold"/>
                             </Grid>
 
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Version"
-                   Foreground="#888888"
-                   FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="MySqlVersionText"
-                   Grid.Column="1"
-                   Text="MySQL 8.4.11"
-                   Foreground="#CCCCCC"
-                   FontSize="12"/>
-
+                                    Grid.Column="1"
+                                    Text="MySQL 8.4.11"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"/>
                             </Grid>
 
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Port"
-                   Foreground="#888888"
-                   FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="MySqlPortText"
-                   Grid.Column="1"
-                   Text="3306"
-                   Foreground="#CCCCCC"
-                   FontSize="12"/>
-
+                                    Grid.Column="1"
+                                    Text="3306"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"/>
                             </Grid>
 
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Host"
-       Foreground="#888888"
-       FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBlock x:Name="MySqlHostText"
-       Grid.Column="1"
-       Text="localhost"
-       Foreground="#CCCCCC"
-       FontSize="12"/>
-
+                                    Grid.Column="1"
+                                    Text="localhost"
+                                    Foreground="#CCCCCC"
+                                    FontSize="12"/>
                             </Grid>
 
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Username"
-               Foreground="#888888"
-               FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <TextBox x:Name="MySqlUsernameText"
-             Grid.Column="1"
-             Text="root"
-             Foreground="#CCCCCC"
-             Background="#1E1E1E"
-             BorderBrush="#555555"
-             Padding="5"/>
-
+                                    Grid.Column="1"
+                                    Text="root"
+                                    Foreground="#CCCCCC"
+                                    Background="#1E1E1E"
+                                    BorderBrush="#555555"
+                                    Padding="5"/>
                             </Grid>
 
-
                             <Grid Margin="0,0,0,10">
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="130"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
                                 <TextBlock Text="Password"
-               Foreground="#888888"
-               FontSize="12"/>
+                                    Foreground="#888888"
+                                    FontSize="12"/>
 
                                 <PasswordBox x:Name="MySqlPasswordText"
-                 Grid.Column="1"
-                 Background="#1E1E1E"
-                 Foreground="#CCCCCC"
-                 BorderBrush="#555555"
-                 Padding="5"/>
-
+                                    Grid.Column="1"
+                                    Background="#1E1E1E"
+                                    Foreground="#CCCCCC"
+                                    BorderBrush="#555555"
+                                    Padding="5"/>
                             </Grid>
 
                             <Button Content="Save MySQL Settings"
-        Width="160"
-        Height="32"
-        HorizontalAlignment="Right"
-        Margin="0,15,0,0"
-        Background="#333333"
-        BorderBrush="#555555"
-        Foreground="#CCCCCC"
-        Click="SaveMySqlSettingsButton_Click"/>
-
+                                Width="160"
+                                Height="32"
+                                HorizontalAlignment="Right"
+                                Margin="0,15,0,0"
+                                Background="#333333"
+                                BorderBrush="#555555"
+                                Foreground="#CCCCCC"
+                                Click="SaveMySqlSettingsButton_Click"/>
                         </StackPanel>
-
                     </Border>
-
                 </StackPanel>
-
             </Grid>
 
-
             <!-- HTTPS Settings -->
-            <Grid x:Name="HttpsSettingsPanel"
-                  Visibility="Collapsed">
-
+            <Grid x:Name="HttpsSettingsPanel" Visibility="Collapsed">
                 <StackPanel>
-
                     <TextBlock Text="HTTPS / SSL"
-                               Foreground="#CCCCCC"
-                               FontSize="20"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,10"/>
+                        Foreground="#CCCCCC"
+                        FontSize="20"
+                        FontWeight="SemiBold"
+                        Margin="0,0,0,10"/>
 
                     <TextBlock Text="Configure HTTPS for local WAMP-DS development."
-                               Foreground="#888888"
-                               FontSize="13"
-                               Margin="0,0,0,25"/>
-
+                        Foreground="#888888"
+                        FontSize="13"
+                        Margin="0,0,0,25"/>
 
                     <!-- HTTPS Status -->
                     <Border Background="#252526"
-                            BorderBrush="#3F3F46"
-                            BorderThickness="1"
-                            Padding="15">
+                        BorderBrush="#3F3F46"
+                        BorderThickness="1"
+                        Padding="15">
 
                         <StackPanel>
-
                             <!-- Status Header -->
                             <Grid>
-
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel>
-
                                     <TextBlock Text="HTTPS"
-                                               Foreground="#CCCCCC"
-                                               FontSize="14"
-                                               FontWeight="SemiBold"/>
+                                        Foreground="#CCCCCC"
+                                        FontSize="14"
+                                        FontWeight="SemiBold"/>
 
                                     <TextBlock x:Name="HttpsStatusText"
-                                               Text="Disabled"
-                                               Foreground="#888888"
-                                               FontSize="12"
-                                               Margin="0,5,0,0"/>
-
+                                        Text="Disabled"
+                                        Foreground="#888888"
+                                        FontSize="12"
+                                        Margin="0,5,0,0"/>
                                 </StackPanel>
 
                                 <Button x:Name="HttpsControlButton"
-                                        Grid.Column="1"
-                                        Content="Enable HTTPS"
-                                        Width="120"
-                                        Height="30"
-                                        Background="#333333"
-                                        BorderBrush="#555555"
-                                        Foreground="#CCCCCC"
-                                        Click="HttpsControlButton_Click"/>
-
+                                    Grid.Column="1"
+                                    Content="Enable HTTPS"
+                                    Width="120"
+                                    Height="30"
+                                    Background="#333333"
+                                    BorderBrush="#555555"
+                                    Foreground="#CCCCCC"
+                                    Click="HttpsControlButton_Click"/>
                             </Grid>
-
 
                             <!-- HTTPS Certificate Details -->
                             <StackPanel x:Name="HttpsDetailsPanel"
-                                       Visibility="Collapsed"
-                                       Margin="0,20,0,0">
+                                Visibility="Collapsed"
+                                Margin="0,20,0,0">
 
                                 <Border Height="1"
-                                        Background="#3F3F46"
-                                        Margin="0,0,0,15"/>
+                                    Background="#3F3F46"
+                                    Margin="0,0,0,15"/>
 
                                 <TextBlock Text="CERTIFICATE"
-                                           Foreground="#888888"
-                                           FontSize="11"
-                                           FontWeight="SemiBold"
-                                           Margin="0,0,0,10"/>
-
+                                    Foreground="#888888"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,10"/>
 
                                 <!-- Subject -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Subject"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateSubjectText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"/>
                                 </Grid>
-
 
                                 <!-- Issuer -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Issuer"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateIssuerText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"/>
                                 </Grid>
-
 
                                 <!-- Valid From -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Valid From"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateValidFromText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"/>
                                 </Grid>
-
 
                                 <!-- Valid Until -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Valid Until"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateValidUntilText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"/>
                                 </Grid>
-
 
                                 <!-- SAN -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="SAN"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateSanText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"
-                                               TextWrapping="Wrap"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"
+                                        TextWrapping="Wrap"/>
                                 </Grid>
-
 
                                 <!-- Trust -->
                                 <Grid Margin="0,0,0,15">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Trust"
-                                               Foreground="#888888"
-                                               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateStatusText"
-                                               Grid.Column="1"
-                                               Text="—"
-                                               Foreground="#CCCCCC"
-                                               FontSize="12"
-                                               FontWeight="SemiBold"/>
-
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="12"
+                                        FontWeight="SemiBold"/>
                                 </Grid>
 
-
                                 <TextBlock Text="CERTIFICATE FILES"
-           Foreground="#888888"
-           FontSize="11"
-           FontWeight="SemiBold"
-           Margin="0,0,0,10"/>
-
+                                    Foreground="#888888"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Margin="0,0,0,10"/>
 
                                 <!-- Certificate File -->
                                 <Grid Margin="0,0,0,7">
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Certificate"
-               Foreground="#888888"
-               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="CertificateFileText"
-               Grid.Column="1"
-               Text="—"
-               Foreground="#CCCCCC"
-               FontSize="11"
-               TextWrapping="Wrap"
-               Cursor="Hand"
-               ToolTipService.InitialShowDelay="300"
-               ToolTipService.ShowDuration="60000"
-               MouseLeftButtonUp="CertificateFileText_MouseLeftButtonUp">
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="11"
+                                        TextWrapping="Wrap"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="300"
+                                        ToolTipService.ShowDuration="60000"
+                                        MouseLeftButtonUp="CertificateFileText_MouseLeftButtonUp">
 
                                         <TextBlock.ToolTip>
-
                                             <ToolTip Background="#252526"
-                     BorderThickness="0"
-                     Padding="10">
+                                                BorderThickness="0"
+                                                Padding="10">
 
                                                 <StackPanel>
-
                                                     <TextBlock Text="Certificate location"
-                               Foreground="#CCCCCC"
-                               FontSize="12"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,5"/>
+                                                        Foreground="#CCCCCC"
+                                                        FontSize="12"
+                                                        FontWeight="SemiBold"
+                                                        Margin="0,0,0,5"/>
 
                                                     <TextBlock x:Name="CertificateFullPathText"
-                               Foreground="#AAAAAA"
-                               FontSize="11"
-                               TextWrapping="Wrap"
-                               MaxWidth="550"/>
-
+                                                        Foreground="#AAAAAA"
+                                                        FontSize="11"
+                                                        TextWrapping="Wrap"
+                                                        MaxWidth="550"/>
                                                 </StackPanel>
-
                                             </ToolTip>
-
                                         </TextBlock.ToolTip>
-
-    </TextBlock>
-
+                                    </TextBlock>
                                 </Grid>
-
 
                                 <!-- Private Key -->
                                 <Grid>
-
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="130"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <TextBlock Text="Private Key"
-               Foreground="#888888"
-               FontSize="12"/>
+                                        Foreground="#888888"
+                                        FontSize="12"/>
 
                                     <TextBlock x:Name="PrivateKeyFileText"
-               Grid.Column="1"
-               Text="—"
-               Foreground="#CCCCCC"
-               FontSize="11"
-               TextWrapping="Wrap"
-               Cursor="Hand"
-               ToolTipService.InitialShowDelay="300"
-               ToolTipService.ShowDuration="60000"
-               MouseLeftButtonUp="PrivateKeyFileText_MouseLeftButtonUp">
+                                        Grid.Column="1"
+                                        Text="—"
+                                        Foreground="#CCCCCC"
+                                        FontSize="11"
+                                        TextWrapping="Wrap"
+                                        Cursor="Hand"
+                                        ToolTipService.InitialShowDelay="300"
+                                        ToolTipService.ShowDuration="60000"
+                                        MouseLeftButtonUp="PrivateKeyFileText_MouseLeftButtonUp">
 
                                         <TextBlock.ToolTip>
-
                                             <ToolTip Background="#252526"
-                     BorderThickness="0"
-                     Padding="10">
+                                                BorderThickness="0"
+                                                Padding="10">
 
                                                 <StackPanel>
-
                                                     <TextBlock Text="Private key location"
-                               Foreground="#CCCCCC"
-                               FontSize="12"
-                               FontWeight="SemiBold"
-                               Margin="0,0,0,5"/>
+                                                        Foreground="#CCCCCC"
+                                                        FontSize="12"
+                                                        FontWeight="SemiBold"
+                                                        Margin="0,0,0,5"/>
 
                                                     <TextBlock x:Name="PrivateKeyFullPathText"
-                               Foreground="#AAAAAA"
-                               FontSize="11"
-                               TextWrapping="Wrap"
-                               MaxWidth="550"/>
-
+                                                        Foreground="#AAAAAA"
+                                                        FontSize="11"
+                                                        TextWrapping="Wrap"
+                                                        MaxWidth="550"/>
                                                 </StackPanel>
-
                                             </ToolTip>
-
                                         </TextBlock.ToolTip>
-
-    </TextBlock>
-
+                                    </TextBlock>
                                 </Grid>
-
                             </StackPanel>
-
                         </StackPanel>
-
                     </Border>
-
                 </StackPanel>
-
             </Grid>
-
         </Grid>
-
     </Grid>
-
 </Window>

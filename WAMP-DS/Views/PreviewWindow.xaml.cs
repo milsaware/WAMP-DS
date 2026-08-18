@@ -92,11 +92,11 @@ namespace WAMP_DS.Views
             }
         }
 
-        private void RefreshButton_Click(
+        private async void RefreshButton_Click(
             object sender,
             RoutedEventArgs e)
         {
-            RefreshPreview();
+            await RefreshPreview();
         }
         private void ShowLoading()
         {

@@ -986,13 +986,13 @@
 
             <!-- Live Preview Resize Grip -->
             <GridSplitter Grid.Column="3"
-              Width="5"
-              HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
-              Background="#3F3F46"
-              ResizeDirection="Columns"
-              ResizeBehavior="PreviousAndNext"
-              ShowsPreview="False"/>
+                Width="5"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Background="#3F3F46"
+                ResizeDirection="Columns"
+                ResizeBehavior="PreviousAndNext"
+                ShowsPreview="False"/>
 
             <!-- Live Preview Panel -->
             <Border Grid.Column="4"
@@ -1000,47 +1000,115 @@
                 SizeChanged="LivePreviewColumn_SizeChanged">
 
                 <Grid>
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-
                     <!-- Preview Header -->
-                    <Border Grid.Row="0"
-                        Background="#2D2D30">
-
+                    <Border Grid.Row="0" Background="#2D2D30">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Grid.Column="0"
-                               Text="LIVE PREVIEW"
-                               Foreground="#CCCCCC"
-                               VerticalAlignment="Center"
-                               Margin="10,0"/>
+                            <!-- Browser Controls -->
+                            <StackPanel Grid.Column="0"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center">
+
+                                <!-- Back -->
+                                <Button x:Name="PreviewBackButton"
+                                    Content="◀"
+                                    Width="28"
+                                    Height="28"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="#CCCCCC"
+                                    ToolTip="Back"
+                                    Click="PreviewBackButton_Click"/>
+
+                                <!-- Forward -->
+                                <Button x:Name="PreviewForwardButton"
+                                    Content="▶"
+                                    Width="28"
+                                    Height="28"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="#CCCCCC"
+                                    ToolTip="Forward"
+                                    Click="PreviewForwardButton_Click"/>
+
+                                <!-- Refresh -->
+                                <Button x:Name="PreviewRefreshButton"
+                                    Content="↻"
+                                    Width="30"
+                                    Height="28"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    Foreground="#CCCCCC"
+                                    ToolTip="Refresh"
+                                    Click="PreviewRefreshButton_Click"/>
+                            </StackPanel>
+
+                            <!-- URL Bar -->
+                            <TextBox x:Name="PreviewUrlTextBox"
+                                Grid.Column="1"
+                                Height="24"
+                                Margin="4,0,4,0"
+                                VerticalAlignment="Center"
+                                Padding="6,2"
+                                Background="#1E1E1E"
+                                BorderBrush="#3F3F46"
+                                BorderThickness="1"
+                                Foreground="#CCCCCC"
+                                CaretBrush="White"
+                                FontSize="12"
+                                KeyDown="PreviewUrlTextBox_KeyDown"/>
 
 
+                            <!-- Open External -->
+                            <Button x:Name="PreviewExternalButton"
+                                Grid.Column="2"
+                                Content="↗"
+                                Width="28"
+                                Height="28"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="#CCCCCC"
+                                ToolTip="Open in external browser"
+                                Click="PreviewExternalButton_Click"/>
+
+                            <!-- Dimensions -->
                             <TextBlock x:Name="PreviewDimensionsText"
-                               Grid.Column="1"
-                               Text="0 x 0"
-                               Foreground="#888888"
-                               VerticalAlignment="Center"
-                               Margin="10,0"/>
+                                Grid.Column="3"
+                                Text="0 x 0"
+                                Foreground="#888888"
+                                VerticalAlignment="Center"
+                                Margin="6,0,10,0"/>
+
+                            <!-- Mobile Preview Toggle -->
+                            <Button x:Name="MobilePreviewButton"
+                                Grid.Column="4"
+                                Content="🖥️"
+                                Width="28"
+                                Height="28"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                Foreground="#CCCCCC"
+                                ToolTip="Mobile Preview"
+                                Click="MobilePreviewButton_Click"/>
                         </Grid>
                     </Border>
 
                     <!-- Browser -->
-                    <wv2:WebView2 x:Name="LivePreviewBrowser"
-                      Grid.Row="1"/>
-
+                    <wv2:WebView2 x:Name="LivePreviewBrowser" Grid.Row="1"/>
                 </Grid>
-
             </Border>
-
         </Grid>
 
         <!-- Status Bar -->
