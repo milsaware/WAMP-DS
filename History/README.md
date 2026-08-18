@@ -18,6 +18,10 @@ Each entry records not only what changed, but also the reasoning, problems, solu
 
 <br>
 
+- **[18 August 2026 — Live Preview Browser & Mobile Mode](2026/08/18/)**
+  
+  Continued real-world development focused on the Live Preview, adding browser-style navigation, a URL bar, external browser support and a desktop/mobile browser toggle for responsive development.
+
 - **[17 August 2026 — Editor Refinement & Developer Experience](2026/08/17/)**
   
   Continued real-world development inside WAMP-DS, adding editor improvements including line and selection duplication, Save As keyboard support, a cache-bypassing live preview refresh and a new editor context menu. Future development ideas were also documented for the first time.
